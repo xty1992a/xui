@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// import XUI from '@/packages/index.js'
-import XUI from 'xui'
+import XUI from '@/packages/index.js'
+// import XUI from 'xui'
 Vue.use(XUI)
 Vue.config.productionTip = false
 /* eslint-disable no-new */

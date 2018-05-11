@@ -8,7 +8,6 @@
             @infinite="infiniteHandler"
             @refresh="refreshHandler">
       <ul class="list">
-        <img src="/static/phone/1.jpeg" alt="">
         <li class="item" v-for="item in list">{{item}}</li>
       </ul>
     </scroll>
@@ -39,7 +38,7 @@
 		  this.isDone = false
 		  console.log('list back')
 		  this.list = Array(40).fill(0).map((i, n) => n + 1)
-		}, 1000)
+		}, 3000)
 	  },
 	  infiniteHandler() {
 		console.log('should load more')

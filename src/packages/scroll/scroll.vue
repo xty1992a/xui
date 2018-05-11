@@ -37,7 +37,7 @@
 	props: {
 	  freshHeight: {
 		type: [Number, String],
-		default: 100
+		default: 50
 	  },
 	  loadHeight: {
 		type: [Number, String],
@@ -144,6 +144,8 @@
 	  },
 	  emitReFresh() {
 		if (this.freshHeight === this.freshOffset) {
+		  this.$refs.wrap.style.transform = `translateY(${this.freshHeight}px)`
+		  this.$refs.wrap.style.transition = 'transform 0.3s linear'
 		  if (this.hadEmitReFresh) return
 		  this.$emit('refresh')
 		  this.hadEmitReFresh = true
