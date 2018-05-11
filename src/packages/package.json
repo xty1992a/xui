@@ -1,0 +1,14 @@
+{
+  "name": "xui",
+  "version": "1.0.3",
+  "description": "a vue ui",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TY-xie",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://192.168.2.213:8081/repository/npm-local/"
+  }
+}
