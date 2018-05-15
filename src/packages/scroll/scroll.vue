@@ -118,10 +118,15 @@
 		  if (deltaY < 0) return
 		  let offset = deltaY *= 0.85
 		  offset -= this.touch.offsetY
+		  if (this.hadEmitReFresh) {
+			offset += this.freshOffset
+		  }
 		  this.freshOffset = Math.min(offset, +this.freshHeight)
 		  e.preventDefault()
 		  this.$refs.wrap.style.transform = `translateY(${offset}px)`
-		  this.$refs.refresh.style.transform = `translateY(${this.freshOffset}px)`
+		  if (!this.hadEmitReFresh) {
+			this.$refs.refresh.style.transform = `translateY(${this.freshOffset}px)`
+		  }
 //		  console.log(deltaY)
 //		  console.log('move')
 		}
@@ -146,6 +151,9 @@
 		if (this.freshHeight === this.freshOffset) {
 		  this.$refs.wrap.style.transform = `translateY(${this.freshHeight}px)`
 		  this.$refs.wrap.style.transition = 'transform 0.3s linear'
+		  setTimeout(() => {
+			this.$refs.wrap.style.transition = ''
+		  }, 300)
 		  if (this.hadEmitReFresh) return
 		  this.$emit('refresh')
 		  this.hadEmitReFresh = true
