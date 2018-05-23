@@ -17,6 +17,11 @@
 <style>
   @import "./styles/index.less";
 
+  .vue-container {
+    height: 100%;
+  }
+
   #app {
+    height: 100%;
   }
 </style>

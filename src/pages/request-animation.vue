@@ -66,22 +66,19 @@
     bottom: 0;
   }
 
-  .scroll {
-    height: 100%;
-    ul {
-      margin: 0;
-      padding: 0 0 0 10px;
-      li {
-        list-style: none;
-        line-height: 30px;
-        padding-left: 10px;
-        &:nth-child(2n+1) {
-          background-color: #f7f7f7;
-        }
+  ul {
+    margin: 0;
+    padding: 0 0 0 10px;
+    li {
+      list-style: none;
+      line-height: 30px;
+      padding-left: 10px;
+      &:nth-child(2n+1) {
+        background-color: #f7f7f7;
       }
-      img {
-        width: 100%;
-      }
+    }
+    img {
+      width: 100%;
     }
   }
 

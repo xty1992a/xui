@@ -3,7 +3,7 @@
  */
 import Action from './index.vue'
 Action.install = function (Vue) {
-  Vue.component(Action.name, Count)
+  Vue.component(Action.name, Action)
 }
 
 export default Action

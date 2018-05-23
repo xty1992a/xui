@@ -8,6 +8,6 @@ export default Request = function ({url, method = 'POST', data = {}, header}) {
 	_._loading()
 	setTimeout(() => {
 	  _._unLoading()
-	}, 1500)
+	}, 600)
   })
 }

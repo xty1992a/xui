@@ -5,19 +5,28 @@ import Action from './action/index.js'
 import Count from './count/index.js'
 import XDialog from './dialog/index.js'
 import Scroll from './scroll/index.js'
+import SidePop from './side-pop/index.js'
+import Btn from './btn/index.js'
+import Tabs from './tabs/index.js'
+import TabPanel from './tab-panel/index.js'
+import Ranger from './ranger/index.js'
 import mount from './dialog.js'
 const components = [
   Action,
+  Btn,
   Count,
-  XDialog,
   Scroll,
+  SidePop,
+  XDialog,
+  Tabs,
+  TabPanel,
+  Ranger,
 ];
 
 const install = function (Vue) {
   Vue.prototype.$eventBus = new Vue
   Vue.prototype.$dialog = mount(Vue)
   components.map(component => {
-	console.log(component, name)
 	Vue.component(component.name, component);
   });
 };

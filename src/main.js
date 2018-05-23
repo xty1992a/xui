@@ -7,12 +7,14 @@ import XUI from '@/packages/index.js'
 // import XUI from 'xui'
 Vue.use(XUI)
 Vue.config.productionTip = false
+import TapCreator from './packages/scripts/dom/tap'
+new TapCreator(document.body)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   components: {App},
-  template: `<div>
+  template: `<div class="vue-container">
 <App/>
 <x-dialog></x-dialog>
 </div>`,
