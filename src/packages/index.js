@@ -9,17 +9,22 @@ import SidePop from './side-pop/index.js'
 import Btn from './btn/index.js'
 import Tabs from './tabs/index.js'
 import TabPanel from './tab-panel/index.js'
+import TabNav from './tab-nav/index.js'
 import Ranger from './ranger/index.js'
+import {Checker, CheckGroup} from './checker/index.js'
 import mount from './dialog.js'
 const components = [
   Action,
   Btn,
   Count,
+  CheckGroup,
+  Checker,
   Scroll,
   SidePop,
   XDialog,
   Tabs,
   TabPanel,
+  TabNav,
   Ranger,
 ];
 

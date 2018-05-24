@@ -1,14 +1,20 @@
 <template>
   <div class="home page">
+
     <count size="normal"
            v-model="goods.count"
            :max="goods.inventory"></count>
+    <ranger v-model="goods.count" :start="0" :step="goods.inventory"></ranger>
+
     <div class="btn-wrap">
       <btn text="底侧action" size="small" @tap="show=true"></btn>
       <btn text="右侧pop" size="normal" @tap="sideHandle('right')"></btn>
       <btn text="左侧pop" size="large" @tap="sideHandle('left')"></btn>
     </div>
 
+    <tab-nav v-model="tabIndex" :labels="tabs.map(({name}) => name)">
+      <div class="custom-name" slot-scope="name">{{name.navName}}</div>
+    </tab-nav>
     <tabs v-model="tabIndex">
       <tab-panel
               :label="item.name"
@@ -19,13 +25,28 @@
       </tab-panel>
     </tabs>
 
-    <ranger v-model="rangerNum" :start="10" :step="90"></ranger>
     <action v-show="show" @cancel="show=false">
       <div class="downer" slot="bottom"></div>
     </action>
     <side-pop :position="position" v-show="sideShow" @cancel="sideShow=false">
       <div class="left-side"></div>
     </side-pop>
+
+    <div class="box-wrap">
+      <div class="box"></div>
+    </div>
+
+    <check-group v-model="taste">
+      <checker val="0" text="甜豆花"></checker>
+      <checker val="1" text="咸豆花"></checker>
+    </check-group>
+
+    <check-group v-model="flavor" :radio="false">
+      <checker val="0" disable text="甜豆花"></checker>
+      <checker val="1" text="咸豆花"></checker>
+      <checker val="2" text="咸豆花"></checker>
+      <checker val="3" text="咸豆花"></checker>
+    </check-group>
 
   </div>
 </template>
@@ -42,23 +63,51 @@
 		  count: 1,
 		  inventory: 10
 		},
+		taste: '0',
+		flavor: ['0', '1', '2', '3'],
+
 		show: false,
 		sideShow: false,
 		position: 'right',
 		rangerNum: 10,
 		tabs: [
 		  {
-			name: '电影',
-			desc: '第八艺术'
-		  },
-		  {
 			name: '绘画',
 			desc: '第一艺术'
 		  },
 		  {
-			name: '音乐',
+			name: '音乐无极限',
 			desc: '第二艺术'
 		  },
+		  {
+			name: '雕刻',
+			desc: '第三艺术'
+		  },
+		  {
+			name: '建筑',
+			desc: '第四艺术'
+		  },
+		  {
+			name: '诗歌',
+			desc: '第五艺术'
+		  },
+		  {
+			name: '舞蹈',
+			desc: '第六艺术'
+		  },
+		  {
+			name: '戏剧',
+			desc: '第七艺术'
+		  },
+		  {
+			name: '电影',
+			desc: '第八艺术'
+		  },
+		  {
+			name: '游戏',
+			desc: '第九艺术'
+		  },
+
 		],
 		tabIndex: 2
 	  }
@@ -98,6 +147,7 @@
 <style lang="less" rel="stylesheet/less" type="text/less">
 
   .home {
+    padding-top: 20px;
     background-color: #f7f7f7;
     .count {
       background-color: #fff;
@@ -125,6 +175,21 @@
       background-color: #fff;
     }
 
+    .box-wrap {
+      width: 100%;
+      overflow-x: auto;
+      .box {
+        height: 30px;
+        width: 200%;
+        background: linear-gradient(to left, #000, #fff);
+      }
+    }
+
+    .custom-name {
+      line-height: 45px;
+      padding: 0 30px;
+      border-bottom: 1px solid #e5e5e5;
+    }
   }
 </style>
 <style>

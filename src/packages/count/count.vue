@@ -1,16 +1,16 @@
 <template>
   <div class="count" :class="[size]">
-    <div class="count-btn"
-         :class="value===0?'disable':''"
-         @click="changeVal(false)">-<!----></div>
+    <div class="count-btn minus"
+         :class="{disable: value===0}"
+         @click="changeVal(false)"></div>
     <input type="text"
            ref="input"
            @input="inputChange($event.target.value)"
            @blur="blur($event.target.value)"
            :value="value">
-    <div class="count-btn"
-         :class="value===max?'disable':''"
-         @click="changeVal(true)">+<!----></div>
+    <div class="count-btn plus"
+         :class="{disable: value===max}"
+         @click="changeVal(true)"></div>
   </div>
 </template>
 
@@ -99,7 +99,6 @@
 
   // endregion
   .count {
-    border: 1px solid #000;
     width: var(--w);
     height: var(--h);
     display: flex;
@@ -107,30 +106,58 @@
     line-height: var(--h);
     .count-btn {
       width: 30%;
-      font-size: 20px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
       cursor: pointer;
       user-select: none;
+      position: relative;
       &.disable {
-        background-color: #f7f7f7;
+        background-color: #f8f8f8;
+        border-color: #c7c7c7;
         cursor: not-allowed;
-        color: #999;
+        &:before, &:after {
+          background-color: #c7c7c7;
+        }
       }
     }
     input {
-      border-width: 0;
-      border-color: #000;
       -webkit-appearance: none;
       -moz-appearance: textfield;
+      border: 1px solid #000;
+      border-width: 1px 0;
       outline: none;
       text-align: center;
-      border-left-width: 1px;
-      border-right-width: 1px;
       width: 40%;
+    }
+    .minus, .plus {
+      border: 1px solid #000;
+      &:before, &:after {
+        content: '';
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        position: absolute;
+        background-color: #000;
+      }
+    }
+    .minus {
+      &:before {
+        height: 1px;
+        width: 9px;
+      }
+      &:after {
+        content: none;
+      }
+    }
+    .plus {
+      &:before {
+        height: 1px;
+        width: 9px;
+      }
+      &:after {
+        height: 9px;
+        width: 1px;
+      }
     }
   }
 </style>

@@ -8,7 +8,7 @@ import XUI from '@/packages/index.js'
 Vue.use(XUI)
 Vue.config.productionTip = false
 import TapCreator from './packages/scripts/dom/tap'
-new TapCreator(document.body)
+new TapCreator(document.body, {maxTime: 150})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

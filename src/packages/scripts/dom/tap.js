@@ -14,7 +14,7 @@ export const helper = {
 	helper.isMobile = false
   }
 })()
-
+const dftOpt = {maxTime: 120, maxDistance: 30,}
 export default class TapCreator {
   touch = {
 	touch: false,
@@ -26,7 +26,7 @@ export default class TapCreator {
 
   constructor(root, opt = {}) {
 	this.$el = root
-	Object.assign(this, opt)
+	Object.assign(this, opt, dftOpt)
 	this.init()
 	console.log(this)
   }

@@ -1,8 +1,8 @@
 <template>
   <transition :name="position">
     <div class="action" v-show="show">
-      <div class="action-mask" @click="cancel"></div>
-      <div :class="['wrap',position]">
+      <div class="action-mask" @tap="cancel"></div>
+      <div :class="['action-wrap',position]">
         <slot></slot>
       </div>
     </div>
@@ -31,6 +31,7 @@
 	},
 	methods: {
 	  cancel() {
+		console.log('cancel')
 		this.$emit('cancel')
 	  },
 	},
@@ -58,7 +59,7 @@
       .fill;
       background-color: rgba(0, 0, 0, 0.4);
     }
-    .wrap {
+    .action-wrap {
       position: absolute;
       transform: translate3d(0, -50%, 0);
       top: 50%;
@@ -73,7 +74,7 @@
       .action-mask {
         opacity: 0;
       }
-      .wrap {
+      .action-wrap {
         transform: translate3d(-100%, -50%, 0);
       }
     }
@@ -81,7 +82,7 @@
       .action-mask {
         opacity: 0;
       }
-      .wrap {
+      .action-wrap {
         transform: translate3d(100%, -50%, 0);
       }
     }
@@ -94,7 +95,7 @@
     .action-mask {
       transition: @d;
     }
-    .wrap {
+    .action-wrap {
       transition: @d;
     }
   }

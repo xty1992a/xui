@@ -1,7 +1,7 @@
 <template>
 
   <div class="ranger-wrap">
-    <div class="ranger" ref="wrap" @touchstart="mouseDown" @mousedown="mouseDown">
+    <div class="ranger" ref="wrap">
       <div class="filler" :style="fillStyle"></div>
       <div class="handler" :style="handStyle">
         <div class="num" v-show="mouse.isDown">{{value}}</div>
@@ -53,34 +53,33 @@
 		this.progress = (this.value - this.start) / this.step
 	  },
 	  listen() {
-		let events = {
-		  move: this.isMobile ? 'touchmove' : 'mousemove',
-		  up: this.isMobile ? 'touchend' : 'mouseup',
-		}
-		document.addEventListener(events.move, e => {
-		  if (e.cancelable) {
-			// 判断默认行为是否已经被禁用
-			if (!e.defaultPrevented) {
-			  e.preventDefault();
-			}
+		this.$nextTick(() => {
+		  let events = {
+			down: this.isMobile ? 'touchstart' : 'mousedown',
+			move: this.isMobile ? 'touchmove' : 'mousemove',
+			up: this.isMobile ? 'touchend' : 'mouseup',
 		  }
-		  if (!this.mouse.isDown) return
-		  let point = this.isMobile ? e.touches[0] : e
-		  this.mouse.now = point.pageX
-		  let {now, start, progress} = this.mouse
-		  let deltaX = now - start
-		  this.progress = Math.min(1, Math.max(progress + (deltaX / this.width), 0))
-		  this.$emit('input', this.currentStep + this.start)
-		})
-		document.addEventListener(events.up, e => {
-		  if (!this.mouse.isDown) return
-		  this.$emit('done')
-		  this.mouse.isDown = false
-		  this.progress = this.currentStep / this.step
+		  let wrap = this.$refs.wrap
+		  wrap.addEventListener(events.down, this.down.bind(this))
+		  document.addEventListener(events.move, e => {
+			if (!this.mouse.isDown) return
+			e.preventDefault();
+			let point = this.isMobile ? e.touches[0] : e
+			this.mouse.now = point.pageX
+			let {now, start, progress} = this.mouse
+			let deltaX = now - start
+			this.progress = Math.min(1, Math.max(progress + (deltaX / this.width), 0))
+			this.$emit('input', this.currentStep + this.start)
+		  })
+		  document.addEventListener(events.up, e => {
+			if (!this.mouse.isDown) return
+			this.mouse.isDown = false
+			this.progress = this.currentStep / this.step
+			this.$emit('done')
+		  })
 		})
 	  },
-
-	  mouseDown(e) {
+	  down(e) {
 		let point = this.isMobile ? e.touches[0] : e
 		console.log('down')
 		this.mouse.isDown = true
@@ -109,6 +108,12 @@
 		return Math.round(width / this.stepWidth)
 	  }
 	},
+	watch: {
+	  value() {
+		if (this.mouse.isDown) return
+		this.progress = (this.value - this.start) / this.step
+	  }
+	}
   }
 </script>
 
