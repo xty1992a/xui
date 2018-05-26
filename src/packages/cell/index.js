@@ -1,22 +1,22 @@
 // 导入组件
-import CellGroup from './cell-group.vue'
-import Cell from './cell.vue'
+import CG from './cell-group.vue'
+import CE from './cell.vue'
 
-CellGroup.install = function (Vue) {
-  Vue.component(CellGroup.name, CellGroup)
+CG.install = function (Vue) {
+  Vue.component(CG.name, CG)
 }
-Cell.install = function (Vue) {
-  Vue.component(Cell.name, Cell)
+CE.install = function (Vue) {
+  Vue.component(CE.name, CE)
 }
 
-export const CellGroup = CellGroup
-export const Cell = Cell
+export const CellGroup = CG
+export const Cell = CE
 
 // 默认导出 install 方法
 export default {
   install (Vue, opts = {}) {
 	// 定义全局组件
-	Vue.component(CellGroup.name, CellGroup)
-	Vue.component(Cell.name, Cell)
+	Vue.component(CG.name, CG)
+	Vue.component(CE.name, CE)
   },
 }

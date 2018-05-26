@@ -14,5 +14,10 @@ export default new Router({
 	  name: 'animation',
 	  component: resolve => require(['pages/request-animation.vue'], resolve),
 	},
+	// {
+	//   path: '/text',
+	//   name: 'text',
+	//   component: resolve => require(['pages/text.vue'], resolve),
+	// },
   ],
 })

@@ -48,6 +48,8 @@
       <checker val="3" text="咸豆花"></checker>
     </check-group>
 
+    <cell title="标题" icon="icon-edit-unfill" link="www.baidu.com" line value="去买单"></cell>
+    <cell title="标题" img="https://ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/soutu/img/camera_new_5606e8f.png" link="www.baidu.com" line></cell>
   </div>
 </template>
 

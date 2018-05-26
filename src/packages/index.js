@@ -1,6 +1,7 @@
 /**
  * Created by TY-xie on 2018/5/7.
  */
+import './font/iconfont.css'
 import Action from './action/index.js'
 import Count from './count/index.js'
 import XDialog from './dialog/index.js'
@@ -12,10 +13,13 @@ import TabPanel from './tab-panel/index.js'
 import TabNav from './tab-nav/index.js'
 import Ranger from './ranger/index.js'
 import {Checker, CheckGroup} from './checker/index.js'
+import {Cell, CellGroup} from './cell/index.js'
 import mount from './dialog.js'
 const components = [
   Action,
   Btn,
+  Cell,
+  CellGroup,
   Count,
   CheckGroup,
   Checker,
