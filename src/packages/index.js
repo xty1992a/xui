@@ -12,19 +12,26 @@ import Tabs from './tabs/index.js'
 import TabPanel from './tab-panel/index.js'
 import TabNav from './tab-nav/index.js'
 import Ranger from './ranger/index.js'
+import ClosePanel from './close-panel/index.js'
+import Switch from './switcher/index.js'
+import Swiper from './swiper/index.js'
 import {Checker, CheckGroup} from './checker/index.js'
 import {Cell, CellGroup} from './cell/index.js'
+
 import mount from './dialog.js'
 const components = [
   Action,
   Btn,
   Cell,
   CellGroup,
+  ClosePanel,
   Count,
   CheckGroup,
   Checker,
   Scroll,
   SidePop,
+  Switch,
+  Swiper,
   XDialog,
   Tabs,
   TabPanel,

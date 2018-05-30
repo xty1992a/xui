@@ -36,6 +36,18 @@
 	},
 	mounted() {
 	  this.initWidth()
+	  setTimeout(() => {
+		console.log(this.value)
+		let wrap = this.$refs.wrap
+		let left = this.offsetList.slice(0, this.value).reduce((p, i) => p + i, 0)
+		let half = this.offsetList[this.value] / 2
+		let result = Math.max(0, left + half - halfScreen)
+		if (wrap) {
+		  let maxLeft = wrap.scrollWidth - wrap.clientWidth
+		  result = Math.min(result, maxLeft)
+		}
+		this.scrollToEle(result)
+	  }, 500)
 	},
 	methods: {
 	  initWidth() {
@@ -68,6 +80,7 @@
 		for (let i = 1; i < 11; i++) {
 		  arr.push(now + i * total / 10)
 		}
+		console.log(arr)
 		requestAnimationFrame(step)
 		function step() {
 		  let gap = arr.shift()

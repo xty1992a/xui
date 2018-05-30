@@ -6,5 +6,4 @@ export default class Slider {
     this.$el = el
 	this.option = opt
   }
-
 }

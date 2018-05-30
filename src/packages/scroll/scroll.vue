@@ -19,7 +19,7 @@
          @touchend="end"
          @scroll="scroll">
       <slot></slot>
-      <div class="infinite-text" v-show="hadEmitInfinite||done">
+      <div class="infinite-text">
         <slot name="infinite">
           <p class="default-text" v-if="done">暂无更多。。。</p>
           <p class="default-text" v-else>加载中。。。</p>
@@ -93,23 +93,14 @@
 		  this.$refs.refresh.style.transition = ''
 		}, 300)
 	  },
-	  scroll() {
-		clearTimeout(this.timer)
-		this.scrollY = this.$refs.wrap.scrollTop
-		if (this.touch.down) return
-		this.timer = setTimeout(() => {
-		  this.emitScrollEnd()
-		}, 50)
-	  },
+
 	  start(e) {
-		clearTimeout(this.timer)
 		this.touch.down = true
 		this.touch.startY = e.touches[0].pageY
 		this.touch.offsetY = this.$refs.wrap.scrollTop
 //		console.log('start', this.touch.offsetY)
 	  },
 	  move(e) {
-		clearTimeout(this.timer)
 		if (!this.touch.down) return
 		if (this.$refs.wrap.scrollTop <= 0) {
 		  this.holdRefresh = true
@@ -127,25 +118,21 @@
 		  if (!this.hadEmitReFresh) {
 			this.$refs.refresh.style.transform = `translateY(${this.freshOffset}px)`
 		  }
-//		  console.log(deltaY)
-//		  console.log('move')
 		}
 	  },
 	  end() {
-		clearTimeout(this.timer)
 		if (!this.touch.down) return
 		this.touch.down = false
 		this.emitScrollEnd()
 		this.$emit('touchEnd', this.$refs.wrap.scrollTop)
 		this.emitReFresh()
-//		console.log('end', this.$refs.wrap.scrollTop)
 	  },
-	  emitInfinite() {
-		if (this.hadEmitInfinite || this.done) return
-		if (this.scrollY + this.loadHeight >= this.$refs.wrap.scrollHeight - this.$refs.wrap.clientHeight) {
-		  this.$emit('infinite')
-		  this.hadEmitInfinite = true
-		}
+	  scroll() {
+		if (this.blocker('Scroll')) return
+		console.log('scroll')
+		this.scrollY = this.$refs.wrap.scrollTop
+		if (this.touch.down) return
+		this.emitScrollEnd()
 	  },
 	  emitReFresh() {
 		if (this.freshHeight === this.freshOffset) {
@@ -165,6 +152,19 @@
 		this.emitInfinite()
 		this.$emit('scrollEnd', this.scrollY)
 	  },
+	  emitInfinite() {
+		if (this.hadEmitInfinite || this.done) return
+		if (this.scrollY + this.loadHeight >= this.$refs.wrap.scrollHeight - this.$refs.wrap.clientHeight) {
+		  this.$emit('infinite')
+		  this.hadEmitInfinite = true
+		}
+	  },
+	  blocker(key, time = 32) {
+		let now = new Date().getTime()
+		if ((now - this[`preBlock${key}Time`]) < time) return true
+		this[`preBlock${key}Time`] = now
+		return false
+	  }
 	},
 	watch: {
 	  data() {

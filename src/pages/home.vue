@@ -25,6 +25,37 @@
       </tab-panel>
     </tabs>
 
+    <div class="cell-list">
+      <cell title="标题" icon="icon-edit-unfill" link="http://www.baidu.com" line value="去买单"></cell>
+
+      <cell title="豆花口味" icon="icon-edit-unfill" line>
+        <check-group v-model="taste" slot="right" style="float: right;">
+          <checker val="0" text="甜豆花"></checker>
+          <checker val="1" text="咸豆花"></checker>
+        </check-group>
+      </cell>
+
+      <cell title="豆花口味" icon="icon-edit-unfill" line @click.native="open=!open">
+        <switcher v-model="open" slot="right" style="float: right;"></switcher>
+      </cell>
+    </div>
+
+    <close-panel v-show="open">
+      <div>
+        <div class="panel-block">
+          <check-group v-model="flavor" :radio="false">
+            <checker val="0" disable text="甜豆花"></checker>
+            <checker val="1" text="咸豆花"></checker>
+            <checker val="2" text="咸豆花"></checker>
+            <checker val="3" text="咸豆花"></checker>
+          </check-group>
+        </div>
+      </div>
+    </close-panel>
+    <div class="box-wrap">
+      <div class="box"></div>
+    </div>
+
     <action v-show="show" @cancel="show=false">
       <div class="downer" slot="bottom"></div>
     </action>
@@ -32,24 +63,6 @@
       <div class="left-side"></div>
     </side-pop>
 
-    <div class="box-wrap">
-      <div class="box"></div>
-    </div>
-
-    <check-group v-model="taste">
-      <checker val="0" text="甜豆花"></checker>
-      <checker val="1" text="咸豆花"></checker>
-    </check-group>
-
-    <check-group v-model="flavor" :radio="false">
-      <checker val="0" disable text="甜豆花"></checker>
-      <checker val="1" text="咸豆花"></checker>
-      <checker val="2" text="咸豆花"></checker>
-      <checker val="3" text="咸豆花"></checker>
-    </check-group>
-
-    <cell title="标题" icon="icon-edit-unfill" link="www.baidu.com" line value="去买单"></cell>
-    <cell title="标题" img="https://ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/soutu/img/camera_new_5606e8f.png" link="www.baidu.com" line></cell>
   </div>
 </template>
 
@@ -67,7 +80,7 @@
 		},
 		taste: '0',
 		flavor: ['0', '1', '2', '3'],
-
+		open: false,
 		show: false,
 		sideShow: false,
 		position: 'right',
@@ -111,11 +124,12 @@
 		  },
 
 		],
-		tabIndex: 2
+		tabIndex: 5,
 	  }
 	},
 	created() {
 	  Request({}) // {#}
+	  console.log(this.$dialog)
 	},
 	methods: {
 	  test(e) {
@@ -149,6 +163,9 @@
 <style lang="less" rel="stylesheet/less" type="text/less">
 
   .home {
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
     padding-top: 20px;
     background-color: #f7f7f7;
     .count {
@@ -192,10 +209,22 @@
       padding: 0 30px;
       border-bottom: 1px solid #e5e5e5;
     }
+
+    .panel-block {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+    }
+
+    .cell-list {
+      background-color: #fff;
+    }
   }
 </style>
 <style>
   .action {
     bottom: 0;
   }
+
 </style>

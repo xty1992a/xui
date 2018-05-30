@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import {helper} from '../scripts/dom/tap.js'
+  import helper from '../scripts/dom/helper.js'
 
   export default {
 	name: 'ranger',

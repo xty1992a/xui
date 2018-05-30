@@ -1,5 +1,5 @@
 <template>
-  <div :class="['x-cell', type, {line}]">
+  <div :class="['x-cell', type, {line}]" @tap="goToLink">
     <div class="cell__left" :style="{width: left/ (right+left) * 100 + '%'}">
       <slot name="left">
         <slot name="icon" v-if="icon||img">
@@ -51,7 +51,11 @@
 	data () {
 	  return {}
 	},
-	methods: {},
+	methods: {
+	  goToLink() {
+		window.location.href = this.link
+	  }
+	},
 	computed: {}
   }
 </script>

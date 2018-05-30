@@ -75,6 +75,23 @@
         border-radius: 50%;
       }
     }
+    &:not(.radio) {
+
+      &:after {
+        content: '';
+        height: 8px;
+        width: 4px;
+        border: 1px solid #fff;
+        position: absolute;
+        left: 2px;
+        top: 35%;
+        transition: .1s .3s;
+        transform-origin: 50% 50%;
+        transform: rotate(45deg) translateY(-50%) scale(0);
+        border-top-color: transparent;
+        border-left-color: transparent;
+      }
+    }
     &.active {
       &:before {
         background-color: #fff;
@@ -91,17 +108,7 @@
           border-width: 8px;
         }
         &:after {
-          content: '';
-          height: 8px;
-          width: 4px;
-          border: 1px solid #fff;
-          position: absolute;
-          left: 2px;
-          top: 35%;
-          transform-origin: 50% 50%;
-          transform: rotate(45deg) translateY(-50%);
-          border-top-color: transparent;
-          border-left-color: transparent;
+          transform: rotate(45deg) translateY(-50%) scale(1);
         }
       }
     }

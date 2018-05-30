@@ -1,30 +1,54 @@
 <template>
   <div class="request-animation">
-    <div class="info">
+    <div class="info" @tap="show=!show">
       <p v-for="i in info">{{i}}</p>
     </div>
-    <scroll :data="list" :done="isDone"
-            @scrollEnd="scrollEnd"
-            @infinite="infiniteHandler"
-            @refresh="refreshHandler">
-      <ul class="list">
-        <li class="item" v-for="item in list">{{item}}</li>
+    <!--<scroll :data="list" :done="isDone"-->
+    <!--@scrollEnd="scrollEnd"-->
+    <!--@infinite="infiniteHandler"-->
+    <!--@refresh="refreshHandler">-->
+    <swiper :data="imgList">
+      <ul class="img-list">
+        <li class="img-wrap" :key="index" v-for="item,index in imgList">
+          <img :src="item" alt="">
+        </li>
       </ul>
-    </scroll>
+    </swiper>
+    <ul class="list">
+      <li class="item" v-for="item in list">{{item}}</li>
+    </ul>
+    <!--</scroll>-->
+    <!--<load-more requireRefresh :onInfinite="onInfinite" :onRefresh="onRefresh">-->
+    <!--<ul class="list">-->
+    <!--<li class="item" v-for="item in list">{{item}}</li>-->
+    <!--</ul>-->
+    <!--</load-more>-->
   </div>
 </template>
 
 <script>
+  import LoadMore from 'components/load-more1'
   export default {
 	name: 'request-animation',
 	data () {
 	  return {
+		show: false,
 		list: [],
 		info: [],
 		touch: {},
-		isDone: false
+		isDone: false,
+
+		imgList: [
+		  'http://s9.knowsky.com/bizhi/l/1-5000/200952813561872091113.jpg',
+		  'http://s9.knowsky.com/bizhi/l/1-5000/200952813566804880856.jpg',
+		  'http://s9.knowsky.com/bizhi/l/1-5000/2009528135610758113800.jpg',
+		  'http://s9.knowsky.com/bizhi/l/1-5000/2009528135613456901907.jpg',
+		  'http://s9.knowsky.com/bizhi/l/1-5000/2009528135622695757924.jpg',
+		  'http://s9.knowsky.com/bizhi/l/1-5000/2009528135627780489920.jpg',
+		]
 	  }
 	},
+	components: {LoadMore},
 	created() {
 	  this.list = Array(40).fill(0).map((i, n) => n + 1)
 	},
@@ -32,13 +56,35 @@
 	  scrollEnd(y) {
 		this.info.splice(0, 1, y)
 	  },
+
+	  onInfinite(done) {
+		console.log('should load more')
+		let l = this.list[this.list.length - 1]
+		setTimeout(() => {
+		  if (this.list.length > 60) {
+			done(true)
+		  } else {
+			this.list = [...this.list, ...Array(20).fill(0).map((i, n) => n + 1 + l)]
+			done(false)
+		  }
+		}, 1000)
+	  },
+	  onRefresh(done) {
+		console.log('should refresh')
+		setTimeout(() => {
+		  console.log('list back')
+		  this.list = Array(40).fill(0).map((i, n) => n + 1)
+		  done()
+		}, 1000)
+	  },
+
 	  refreshHandler() {
 		console.log('should refresh')
 		setTimeout(() => {
 		  this.isDone = false
 		  console.log('list back')
 		  this.list = Array(40).fill(0).map((i, n) => n + 1)
-		}, 3000)
+		}, 1000)
 	  },
 	  infiniteHandler() {
 		console.log('should load more')
@@ -49,7 +95,7 @@
 		  } else {
 			this.list = [...this.list, ...Array(20).fill(0).map((i, n) => n + 1 + l)]
 		  }
-		}, 3000)
+		}, 400)
 	  }
 	},
 	computed: {}
@@ -66,7 +112,7 @@
     bottom: 0;
   }
 
-  ul {
+  .list {
     margin: 0;
     padding: 0 0 0 10px;
     li {
@@ -77,9 +123,10 @@
         background-color: #f7f7f7;
       }
     }
-    img {
-      width: 100%;
-    }
+  }
+
+  img {
+    width: 100%;
   }
 
   .info {

@@ -1,19 +1,7 @@
 /**
  * Created by TY-xie on 2018/5/21.
  */
-export const helper = {
-	  isMobile: false,
-	}
-
-;(() => {
-  try {
-	document.createEvent('TouchEvent');
-	helper.isMobile = true
-  }
-  catch (e) {
-	helper.isMobile = false
-  }
-})()
+import helper from './helper'
 const dftOpt = {maxTime: 120, maxDistance: 30,}
 export default class TapCreator {
   touch = {
@@ -26,7 +14,7 @@ export default class TapCreator {
 
   constructor(root, opt = {}) {
 	this.$el = root
-	Object.assign(this, opt, dftOpt)
+	Object.assign(this, dftOpt, opt)
 	this.init()
 	console.log(this)
   }
