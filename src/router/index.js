@@ -14,10 +14,15 @@ export default new Router({
 	  name: 'animation',
 	  component: resolve => require(['pages/request-animation.vue'], resolve),
 	},
-	// {
-	//   path: '/text',
-	//   name: 'text',
-	//   component: resolve => require(['pages/text.vue'], resolve),
-	// },
+	{
+	  path: '/slider',
+	  name: 'slider',
+	  component: resolve => require(['pages/slider-page.vue'], resolve),
+	},
+	{
+	  path: '/keyboard',
+	  name: 'keyboard',
+	  component: resolve => require(['pages/keyboard.vue'], resolve),
+	},
   ],
 })

@@ -1,7 +1,7 @@
 <template>
   <transition :name="position">
     <div class="action" :style="{top}" @mousewheel="mouseWheel">
-      <div class="action-mask" @click="cancel" :style="{top}"></div>
+      <div class="action-mask" @tap="cancel" :style="{top, opacity}"></div>
       <div class="top" v-if="position==='top'" :style="{height:topHeight}">
         <slot name="top"></slot>
       </div>
@@ -22,6 +22,10 @@
 	  topHeight: {
 		type: String,
 		default: 'auto'
+	  },
+	  opacity: {
+		type: Number,
+		default: 0.4
 	  },
 	  position: {
 		type: String,
@@ -91,7 +95,7 @@
     }
     .action-mask {
       .fill;
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: #000;
     }
     .center {
       transform: translate3d(-50%, -50%, 0) scale(1);

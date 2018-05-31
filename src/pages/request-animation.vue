@@ -1,23 +1,23 @@
 <template>
   <div class="request-animation">
-    <div class="info" @tap="show=!show">
+    <div class="info">
       <p v-for="i in info">{{i}}</p>
     </div>
-    <!--<scroll :data="list" :done="isDone"-->
-    <!--@scrollEnd="scrollEnd"-->
-    <!--@infinite="infiniteHandler"-->
-    <!--@refresh="refreshHandler">-->
-    <swiper :data="imgList">
-      <ul class="img-list">
-        <li class="img-wrap" :key="index" v-for="item,index in imgList">
-          <img :src="item" alt="">
-        </li>
+    <scroll :data="list" :done="isDone"
+            @scrollEnd="scrollEnd"
+            @infinite="infiniteHandler"
+            @refresh="refreshHandler">
+      <swiper :data="imgList" loop>
+        <ul class="img-list">
+          <li class="img-wrap" :key="index" v-for="item,index in imgList">
+            <img :src="item" alt="">
+          </li>
+        </ul>
+      </swiper>
+      <ul class="list">
+        <li class="item" v-for="item in list">{{item}}</li>
       </ul>
-    </swiper>
-    <ul class="list">
-      <li class="item" v-for="item in list">{{item}}</li>
-    </ul>
-    <!--</scroll>-->
+    </scroll>
     <!--<load-more requireRefresh :onInfinite="onInfinite" :onRefresh="onRefresh">-->
     <!--<ul class="list">-->
     <!--<li class="item" v-for="item in list">{{item}}</li>-->
@@ -32,12 +32,10 @@
 	name: 'request-animation',
 	data () {
 	  return {
-		show: false,
 		list: [],
 		info: [],
 		touch: {},
 		isDone: false,
-
 		imgList: [
 		  'http://s9.knowsky.com/bizhi/l/1-5000/200952813561872091113.jpg',
 		  'http://s9.knowsky.com/bizhi/l/1-5000/200952813566804880856.jpg',
@@ -45,7 +43,7 @@
 		  'http://s9.knowsky.com/bizhi/l/1-5000/2009528135613456901907.jpg',
 		  'http://s9.knowsky.com/bizhi/l/1-5000/2009528135622695757924.jpg',
 		  'http://s9.knowsky.com/bizhi/l/1-5000/2009528135627780489920.jpg',
-		]
+		],
 	  }
 	},
 	components: {LoadMore},

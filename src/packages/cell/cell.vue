@@ -53,7 +53,7 @@
 	},
 	methods: {
 	  goToLink() {
-		window.location.href = this.link
+		this.link && (window.location.href = this.link)
 	  }
 	},
 	computed: {}

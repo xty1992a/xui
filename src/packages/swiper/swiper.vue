@@ -1,6 +1,9 @@
 <template>
   <div class="swipper" ref="wrap">
     <slot></slot>
+    <slot name="dot">
+      <div class="dot-list"><span @click="active(i)" v-for="t,i in data" :class="{active: currentIndex===i}"></span></div>
+    </slot>
   </div>
 </template>
 
@@ -13,11 +16,16 @@
 	  data: {
 		type: Array,
 		required: true
-	  }
+	  },
+	  loop: Boolean,
+	  bounce: Boolean,
+	  auto: Boolean,
+	  duration: Number
 	},
 	data () {
 	  return {
 		swipper: null,
+		currentIndex: 0
 	  }
 	},
 	mounted() {
@@ -31,10 +39,22 @@
 			if (this.swipper) {
 			  this.swipper.refresh()
 			} else {
-			  this.swipper = new Swipper(wrap)
+			  this.swipper = new Swipper(wrap, Object.assign(Object.create(null), {
+				loop: this.loop,
+				auto: this.auto,
+				bounce: this.bounce,
+				duration: this.duration,
+			  }))
 			}
+			this.swipper.on('scrollEnd', index => {
+			  console.log(index)
+			  this.currentIndex = index
+			})
 		  }
 		}, 20)
+	  },
+	  active(i) {
+		this.swipper.goToPage(i)
 	  }
 	},
 	computed: {
@@ -59,7 +79,21 @@
   @import "../style/swipper";
 
   .swipper {
-    height: 244px;
     overflow: hidden;
+    .dot-list {
+      text-align: center;
+      span {
+        height: 10px;
+        width: 10px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background-color: #000;
+        opacity: .4;
+        display: inline-block;
+        &.active {
+          background-color: #62aaff;
+        }
+      }
+    }
   }
 </style>
