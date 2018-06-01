@@ -1,7 +1,7 @@
 <template>
   <action class="keyboard-action" v-show="show" :opacity="0" position="bottom" @cancel="cancel">
-    <div class="number-keyboard" slot="bottom">
-      <div class="key-cell" v-for="cell in cellList" @tap="cellTap(cell.key)">
+    <div class="x-number-keyboard" slot="bottom">
+      <div class="key__cell" v-for="cell in cellList" @tap="cellTap(cell.key)">
         <i :class="['iconfont', cell.icon]" v-if="cell.icon"></i>
         <span v-if="cell.text">{{cell.text}}</span>
       </div>
@@ -65,26 +65,27 @@
 
   .keyboard-action {
     bottom: 0;
-    .number-keyboard {
-      overflow: hidden;
-      .key-cell {
-        width: 33.33333%;
-        float: left;
-        line-height: 50px;
-        height: 50px;
-        text-align: center;
-        border-color: #e5e5e5;
-        border-style: solid;
-        border-width: 1px 0 0 1px;
-        &:nth-child(3n+1) {
-          border-left-width: 0;
-        }
-        span {
-          font-size: 24px;
-        }
-        i {
-          font-size: 32px;
-        }
+  }
+
+  .x-number-keyboard {
+    overflow: hidden;
+    .key__cell {
+      width: 33.33333%;
+      float: left;
+      line-height: 50px;
+      height: 50px;
+      text-align: center;
+      border-color: #e5e5e5;
+      border-style: solid;
+      border-width: 1px 0 0 1px;
+      &:nth-child(3n+1) {
+        border-left-width: 0;
+      }
+      span {
+        font-size: 24px;
+      }
+      i {
+        font-size: 32px;
       }
     }
   }

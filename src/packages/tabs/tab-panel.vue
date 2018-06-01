@@ -1,6 +1,6 @@
 <template>
   <transition :name="transitionName">
-    <div class="tab-panel" v-show="active">
+    <div class="tab__panel" v-show="active">
       <slot></slot>
     </div>
   </transition>
@@ -18,7 +18,7 @@
 	  index: {
 		type: [String, Number],
 		required: true
-	  }
+	  },
 	},
 	computed: {
 	  active() {
@@ -52,18 +52,6 @@
 </script>
 
 <style lang="less" rel="stylesheet/less" scoped>
-  ul, li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .tab-panel {
-    .nav-list {
-      display: flex;
-    }
-  }
-
   .left-enter, .left-leave-to {
     transform: translate3d(100%, 0, 0);
   }

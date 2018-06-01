@@ -1,14 +1,14 @@
 <template>
-  <div class="swipper" ref="wrap">
+  <div class="x-swipper" ref="wrap">
     <slot></slot>
     <slot name="dot">
-      <div class="dot-list"><span @click="active(i)" v-for="t,i in data" :class="{active: currentIndex===i}"></span></div>
+      <div class="swipper__dot-list"><span @click="active(i)" v-for="t,i in data" :class="{active: currentIndex===i}"></span></div>
     </slot>
   </div>
 </template>
 
 <script>
-  import Swipper from '../scripts/dom/swiper'
+  import {Swipper, Slider} from '../scripts/dom/slider'
   export default {
 	name: 'swiper',
 	components: {},
@@ -20,12 +20,16 @@
 	  loop: Boolean,
 	  bounce: Boolean,
 	  auto: Boolean,
-	  duration: Number
+	  duration: Number,
+	  type: {
+		type: String,
+		default: '1'
+	  }
 	},
 	data () {
 	  return {
-		swipper: null,
-		currentIndex: 0
+		currentIndex: 0,
+		swipper: null
 	  }
 	},
 	mounted() {
@@ -35,26 +39,49 @@
 	  freshSwipper() {
 		setTimeout(() => {
 		  let wrap = this.$refs.wrap
+		  this.auto && clearTimeout(this.timer)
 		  if (wrap) {
-			if (this.swipper) {
-			  this.swipper.refresh()
-			} else {
-			  this.swipper = new Swipper(wrap, Object.assign(Object.create(null), {
+			if (!this.swipper) {
+			  let opt = Object.assign(Object.create(null), {
 				loop: this.loop,
 				auto: this.auto,
 				bounce: this.bounce,
 				duration: this.duration,
-			  }))
+			  })
+			  switch (this.type) {
+				case '1':
+				  this.swipper = new Swipper(wrap, opt)
+				  break
+				case '2':
+				  this.swipper = new Slider(wrap, opt)
+				  break
+			  }
+			  console.log(this.swipper)
+			}
+			else {
+			  this.swipper.refresh()
 			}
 			this.swipper.on('scrollEnd', index => {
-			  console.log(index)
 			  this.currentIndex = index
+			  if (this.type === '2') console.log('end')
+			  if (this.auto) {
+				this.timer = setTimeout(() => {
+				  this.swipper.next()
+				}, 1000)
+			  }
+			})
+			this.swipper.on('touchDown', () => {
+			  if (this.auto) {
+				clearTimeout(this.timer)
+			  }
 			})
 		  }
 		}, 20)
 	  },
 	  active(i) {
 		this.swipper.goToPage(i)
+	  },
+	  autoPlay(){
 	  }
 	},
 	computed: {
@@ -78,9 +105,9 @@
 <style scoped lang="less" rel="stylesheet/less" type="text/less">
   @import "../style/swipper";
 
-  .swipper {
-    overflow: hidden;
-    .dot-list {
+  .x-swipper {
+    /*overflow: hidden;*/
+    .swipper__dot-list {
       text-align: center;
       span {
         height: 10px;

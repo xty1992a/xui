@@ -1,15 +1,11 @@
 <template>
   <div class="home page">
 
-    <count size="normal"
-           v-model="goods.count"
-           :max="goods.inventory"></count>
-    <ranger v-model="goods.count" :start="0" :step="goods.inventory"></ranger>
 
     <div class="btn-wrap">
-      <btn text="底侧action" size="small" @tap="show=true"></btn>
-      <btn text="右侧pop" size="normal" @tap="sideHandle('right')"></btn>
-      <btn text="左侧pop" size="large" @tap="sideHandle('left')"></btn>
+      <btn colors="#fff,#000,#333" text="底侧action" size="small" @tap="show=true"></btn>
+      <btn type="primary" text="右侧pop" size="normal" @tap="sideHandle('right')"></btn>
+      <btn type="danger" text="左侧pop" size="large" @tap="sideHandle('left')"></btn>
     </div>
 
     <tab-nav v-model="tabIndex" :labels="tabs.map(({name}) => name)">
@@ -25,7 +21,17 @@
       </tab-panel>
     </tabs>
 
+    <ranger v-model="goods.count" :start="0" :step="goods.inventory"></ranger>
     <div class="cell-list">
+
+      <cell title="计数器" icon="icon-edit-unfill" line>
+        <template slot="right">
+          <count size="normal"
+                 v-model="goods.count"
+                 :max="goods.inventory"></count>
+        </template>
+      </cell>
+
       <cell title="标题" icon="icon-edit-unfill" link="http://www.baidu.com" line value="去买单"></cell>
 
       <cell title="豆花口味" icon="icon-edit-unfill" line>
@@ -35,7 +41,7 @@
         </check-group>
       </cell>
 
-      <cell title="豆花口味" icon="icon-edit-unfill" line @click.native="open=!open">
+      <cell title="豆花口味" icon="icon-edit-unfill" line @tap.native="open=!open">
         <switcher v-model="open" slot="right" style="float: right;"></switcher>
       </cell>
     </div>
@@ -129,7 +135,6 @@
 	},
 	created() {
 	  Request({}) // {#}
-	  console.log(this.$dialog)
 	},
 	methods: {
 	  test(e) {
@@ -168,6 +173,7 @@
     -webkit-overflow-scrolling: touch;
     padding-top: 20px;
     background-color: #f7f7f7;
+    color: #000;
     .count {
       background-color: #fff;
     }
@@ -190,7 +196,7 @@
 
     .item {
       width: 100%;
-      height: 300px;
+      height: 200px;
       background-color: #fff;
     }
 
@@ -221,10 +227,4 @@
       background-color: #fff;
     }
   }
-</style>
-<style>
-  .action {
-    bottom: 0;
-  }
-
 </style>

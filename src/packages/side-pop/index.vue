@@ -1,8 +1,8 @@
 <template>
   <transition :name="position">
-    <div class="action" v-show="show">
-      <div class="action-mask" @tap="cancel"></div>
-      <div :class="['action-wrap',position]">
+    <div class="x-side-pop" v-show="show">
+      <div class="side-pop__mask" @tap="cancel"></div>
+      <div :class="['side-pop__wrap','side-pop__'+position]">
         <slot></slot>
       </div>
     </div>
@@ -47,7 +47,7 @@
     top: @top;
   }
 
-  .action {
+  .x-side-pop {
     overflow: hidden;
     position: absolute;
     z-index: 20;
@@ -55,34 +55,34 @@
     right: 0;
     top: 0;
     left: 0;
-    .action-mask {
+    .side-pop__mask {
       .fill;
       background-color: rgba(0, 0, 0, 0.4);
     }
-    .action-wrap {
+    .side-pop__wrap {
       position: absolute;
       transform: translate3d(0, -50%, 0);
       top: 50%;
     }
-    .left {
+    .side-pop__left {
       left: 0;
     }
-    .right {
+    .side-pop__right {
       right: 0;
     }
     &.left-enter, &.left-leave-to {
-      .action-mask {
+      .side-pop__mask {
         opacity: 0;
       }
-      .action-wrap {
+      .side-pop__wrap {
         transform: translate3d(-100%, -50%, 0);
       }
     }
     &.right-enter, &.right-leave-to {
-      .action-mask {
+      .side-pop__mask {
         opacity: 0;
       }
-      .action-wrap {
+      .side-pop__wrap {
         transform: translate3d(100%, -50%, 0);
       }
     }
@@ -92,10 +92,10 @@
   .left-enter-active, .left-leave-active,
   .right-enter-active, .right-leave-active {
     transition: @d;
-    .action-mask {
+    .side-pop__mask {
       transition: @d;
     }
-    .action-wrap {
+    .side-pop__wrap {
       transition: @d;
     }
   }

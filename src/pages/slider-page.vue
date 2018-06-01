@@ -2,16 +2,18 @@
   <div class="slider-page">
     <btn text="添加" @tap="add"></btn>
     <btn text="删除" @tap="minus"></btn>
-    <swiper :data="itemList">
-      <ul class="img-list">
-        <li class="img-wrap" :key="index" v-for="item,index in itemList">{{item}}</li>
-      </ul>
-    </swiper>
-    <swiper :data="itemList" loop>
-      <ul class="img-list">
-        <li class="img-wrap" :key="index" v-for="item,index in itemList">{{item}}</li>
-      </ul>
-    </swiper>
+    <div class="wrap">
+      <swiper :data="itemList" loop auto>
+        <ul class="img-list">
+          <li class="img-wrap" :key="index" v-for="item,index in itemList">{{item}}</li>
+        </ul>
+      </swiper>
+      <swiper :data="itemList" loop type="2" auto>
+        <ul class="img-list">
+          <li class="img-wrap" :key="index" v-for="item,index in itemList">{{item}}</li>
+        </ul>
+      </swiper>
+    </div>
   </div>
 </template>
 
@@ -21,13 +23,10 @@
 	components: {},
 	data () {
 	  return {
-		itemList: [1, 2, 3]
+		itemList: [1, 2, 3, 4]
 	  }
 	},
 	mounted() {
-	  setTimeout(() => {
-		this.itemList = [1, 2, 3, 4, 5, 6]
-	  }, 1000)
 	},
 	methods: {
 	  add() {
@@ -45,6 +44,10 @@
 
   .slider-page {
 
+    .wrap {
+      margin: 0 auto;
+      width: 375px;
+    }
     img {
       width: 100%;
     }
@@ -55,6 +58,10 @@
       text-align: center;
       font-size: 100px;
       font-weight: bold;
+      background-color: #f7f7f7;
+      &:nth-last-child(2n) {
+        background-color: #fff;
+      }
     }
 
   }

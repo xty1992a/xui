@@ -16,7 +16,6 @@ export default class TapCreator {
 	this.$el = root
 	Object.assign(this, dftOpt, opt)
 	this.init()
-	console.log(this)
   }
 
   init() {

@@ -1,8 +1,7 @@
 /**
  * Created by TY-xie on 2018/5/30.
  */
-const helper = require('./helper')
-
+import helper from './helper'
 const initialOption = Object.assign(Object.create(null), {
   loop: true,
   time: 3000,

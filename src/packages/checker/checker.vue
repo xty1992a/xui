@@ -1,5 +1,5 @@
 <template>
-  <div class="checker" :class="{active: isCheck, disable, radio}" @click="checkMe">{{text}}</div>
+  <div class="x-checker" :class="{check__active: isCheck, check__disable: disable, check__radio: radio}" @click="checkMe">{{text}}</div>
 </template>
 
 <script>
@@ -70,12 +70,12 @@
       box-sizing: border-box;
       border-radius: 2px;
     }
-    &.radio {
+    &.check__radio {
       &:before {
         border-radius: 50%;
       }
     }
-    &:not(.radio) {
+    &:not(.check__radio) {
 
       &:after {
         content: '';
@@ -92,18 +92,18 @@
         border-left-color: transparent;
       }
     }
-    &.active {
+    &.check__active {
       &:before {
         background-color: #fff;
         border: 4px solid @activeColor;
       }
-      &.disable {
+      &.check__disable {
         &:before {
           background-color: #fff;
           border-color: #ccc;
         }
       }
-      &:not(.radio) {
+      &:not(.check__radio) {
         &:before {
           border-width: 8px;
         }
@@ -112,13 +112,13 @@
         }
       }
     }
-    &.disable {
+    &.check__disable {
       color: #ccc;
       cursor: not-allowed;
     }
   }
 
-  .checker {
+  .x-checker {
     .v-check();
   }
 </style>

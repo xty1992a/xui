@@ -1,30 +1,16 @@
 <template>
-  <div class="switcher" @click="change" :class="check?'switch-on':'switch-off'">
-    <div key="ball" class="ball"></div>
+  <div class="x-switcher" @click="change" :class="value?'x-switch-on':'x-switch-off'">
+    <div class="switch__btn"></div>
   </div>
 </template>
 
 <script>
   export default {
 	name: 'switcher',
-	props: ["value"],
-	data() {
-	  return {
-		check: this.value,
-	  }
-	},
-	created() {
-	  this.check = this.value
-	},
+	props: ['value'],
 	methods: {
 	  change() {
-		this.check = !this.check
-		this.$emit('change', this.check)
-	  }
-	},
-	watch: {
-	  value(val) {
-		this.check = val
+		this.$emit('change', !this.value)
 	  }
 	},
   }
@@ -33,7 +19,7 @@
 <style lang="less" rel="stylesheet/less" scoped>
   @import "../../styles/index";
 
-  .switcher {
+  .x-switcher {
     -webkit-touch-callout: none;
     width: 48px;
     height: 28px;
@@ -47,7 +33,7 @@
     cursor: pointer;
     box-shadow: 0 0 2px rgba(0, 0, 0, .05) inset;
     transition: @delay;
-    .ball {
+    .switch__btn {
       user-select: none;
       transition: @delay;
       left: 0;
@@ -63,24 +49,20 @@
   }
 
   @delay: .3s;
-  .on-move, .off-move {
-    transition: @delay;
-  }
-
   .translate(@x,@y,@z) {
     transform: translate3d(@x, @y, @z);
   }
 
-  .switch-off {
+  .x-switch-off {
     background-color: #fff;
-    .ball {
+    .switch__btn {
       .translate(0, -50%, 0);
     }
   }
 
-  .switch-on {
+  .x-switch-on {
     background-color: @baseC;
-    .ball {
+    .switch__btn {
       .translate(20px, -50%, 0);
     }
   }

@@ -3,8 +3,16 @@
   min-height: 1px;
   overflow: hidden;
   .swipper__slider {
-    overflow: hidden;
+    &:after, &:before {
+      content: '';
+      display: block;
+      visibility: hidden;
+      height: 0;
+      clear: both;
+    }
     .swipper__item {
+      user-select: none;
+      cursor: pointer;
       float: left;
     }
   }

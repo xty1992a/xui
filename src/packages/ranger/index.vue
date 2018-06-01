@@ -1,10 +1,10 @@
 <template>
 
-  <div class="ranger-wrap">
-    <div class="ranger" ref="wrap">
-      <div class="filler" :style="fillStyle"></div>
-      <div class="handler" :style="handStyle">
-        <div class="num" v-show="mouse.isDown">{{value}}</div>
+  <div class="x-ranger-wrap">
+    <div class="x-ranger" ref="wrap">
+      <div class="ranger__filler" :style="fillStyle"></div>
+      <div class="ranger__handler" :style="handStyle">
+        <div class="ranger__num" v-show="mouse.isDown">{{value}}</div>
       </div>
     </div>
   </div>
@@ -119,25 +119,25 @@
 
 <style lang="less" rel="stylesheet/less" scoped>
 
-  .ranger-wrap {
+  .x-ranger-wrap {
     padding: 0 20px;
     min-height: 30px;
     display: flex;
     align-items: center;
   }
 
-  .ranger {
+  .x-ranger {
     width: 100%;
     height: 4px;
     border-radius: 2px;
     position: relative;
     background-color: #E5E5E5;
-    .filler {
+    .ranger__filler {
       background-color: #BBDDFF;
       border-radius: 2px;
       height: 100%;
     }
-    .handler {
+    .ranger__handler {
       cursor: pointer;
       height: 20px;
       width: 20px;
@@ -149,7 +149,7 @@
       border-radius: 50%;
     }
 
-    .num {
+    .ranger__num {
       position: absolute;
       top: 0;
       left: 50%;

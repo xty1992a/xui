@@ -1,12 +1,12 @@
 <template>
-  <div class="tab-nav" ref="wrap">
-    <ul :class="['nav-list', dir]" :style="{width: navListWidth}">
-      <li class="nav-item"
+  <div class="x-tab-nav" ref="wrap">
+    <ul :class="['tab-nav__list', 'nav__'+dir]" :style="{width: navListWidth}">
+      <li class="nav__item"
           @tap="navTap(index)"
-          :class="index===value?'active':''"
+          :class="index===value?'nav__active':''"
           v-for="item,index in labels">
         <slot :nav-name="item">
-          <p class="nav-name">{{item}}</p>
+          <p class="nav__name">{{item}}</p>
         </slot>
       </li>
     </ul>
@@ -37,7 +37,6 @@
 	mounted() {
 	  this.initWidth()
 	  setTimeout(() => {
-		console.log(this.value)
 		let wrap = this.$refs.wrap
 		let left = this.offsetList.slice(0, this.value).reduce((p, i) => p + i, 0)
 		let half = this.offsetList[this.value] / 2
@@ -64,12 +63,10 @@
 			if (width > wrap.clientWidth) {
 			  this.navListWidth = width + 'px'
 			}
-			console.log(width, this.offsetList)
 		  }, 20)
 		})
 	  },
 	  navTap(index) {
-		console.log('tap')
 		this.$emit('input', index)
 	  },
 	  scrollToEle(target) {
@@ -80,7 +77,6 @@
 		for (let i = 1; i < 11; i++) {
 		  arr.push(now + i * total / 10)
 		}
-		console.log(arr)
 		requestAnimationFrame(step)
 		function step() {
 		  let gap = arr.shift()
@@ -121,51 +117,51 @@
 
 <style scoped lang="less" rel="stylesheet/less">
 
-  .tab-nav {
+  .x-tab-nav {
     width: 100%;
     overflow-x: auto;
   }
 
-  .nav-list {
+  .tab-nav__list {
     overflow: hidden;
     background-color: #fff;
     white-space: nowrap;
-    &.left {
-      .nav-item {
-        &:not(.active) {
+    &.nav__left {
+      .nav__item {
+        &:not(.nav__active) {
           &:after {
             transform-origin: left;
           }
         }
-        &.active {
+        &.nav__active {
           &:after {
             transform-origin: right;
           }
         }
       }
     }
-    &.right {
-      .nav-item {
-        &:not(.active) {
+    &.nav__right {
+      .nav__item {
+        &:not(.nav__active) {
           &:after {
             transform-origin: right;
           }
         }
-        &.active {
+        &.nav__active {
           &:after {
             transform-origin: left;
           }
         }
       }
     }
-    .nav-item {
+    .nav__item {
       display: inline-block;
       position: relative;
-      .nav-name {
+      .nav__name {
         line-height: 36px;
         padding: 0 20px;
       }
-      &.active {
+      &.nav__active {
         color: #5574ff;
       }
       &:after {
@@ -181,7 +177,7 @@
       }
     }
 
-    .active {
+    .nav__active {
       &:after {
         transform: scaleX(1);
       }

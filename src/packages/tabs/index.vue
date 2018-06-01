@@ -1,7 +1,7 @@
 <template>
-  <div class="tabs">
+  <div class="x-tabs">
     <tab-nav v-model="navIndex" :labels="labels" @dir="dirChange"></tab-nav>
-    <ul class="tab-content">
+    <ul class="tab__content">
       <slot></slot>
     </ul>
   </div>
@@ -52,8 +52,8 @@
     list-style: none;
   }
 
-  .tabs {
-    .tab-content {
+  .x-tabs {
+    .tab__content {
       overflow: hidden;
       position: relative;
     }

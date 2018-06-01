@@ -1,15 +1,15 @@
 <template>
-  <div class="count" :class="[size]">
-    <div class="count-btn minus"
-         :class="{disable: value===0}"
+  <div class="x-count" :class="['count__'+size]">
+    <div class="count__btn count__minus"
+         :class="{count__disable: value===0}"
          @click="changeVal(false)"></div>
     <input type="text"
            ref="input"
            @input="inputChange($event.target.value)"
            @blur="blur($event.target.value)"
            :value="value">
-    <div class="count-btn plus"
-         :class="{disable: value===max}"
+    <div class="count__btn count__plus"
+         :class="{count__disable: value===max}"
          @click="changeVal(true)"></div>
   </div>
 </template>
@@ -87,29 +87,29 @@
   }
 
   // region size
-  .wrap {
+  .count__wrap {
     --w: 100%;
     --h: 100%;
   }
 
-  .normal {
+  .count__normal {
     --w: 120px;
     --h: 28px;
   }
 
   // endregion
-  .count {
+  .x-count {
     width: var(--w);
     height: var(--h);
     display: flex;
     text-align: center;
     line-height: var(--h);
-    .count-btn {
+    .count__btn {
       width: 30%;
       cursor: pointer;
       user-select: none;
       position: relative;
-      &.disable {
+      &.count__disable {
         background-color: #f8f8f8;
         border-color: #c7c7c7;
         cursor: not-allowed;
@@ -127,7 +127,7 @@
       text-align: center;
       width: 40%;
     }
-    .minus, .plus {
+    .count__minus, .count__plus {
       border: 1px solid #000;
       &:before, &:after {
         content: '';
@@ -140,7 +140,7 @@
         background-color: #000;
       }
     }
-    .minus {
+    .count__minus {
       &:before {
         height: 1px;
         width: 9px;
@@ -149,7 +149,7 @@
         content: none;
       }
     }
-    .plus {
+    .count__plus {
       &:before {
         height: 1px;
         width: 9px;

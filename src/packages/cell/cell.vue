@@ -1,5 +1,5 @@
 <template>
-  <div :class="['x-cell', type, {line}]" @tap="goToLink">
+  <div :class="['x-cell', `cell__${type}`, {'cell__line':line}]" @tap="goToLink">
     <div class="cell__left" :style="{width: left/ (right+left) * 100 + '%'}">
       <slot name="left">
         <slot name="icon" v-if="icon||img">
@@ -108,11 +108,11 @@
     }
   }
 
-  .normal {
+  .cell__normal {
     height: 45px;
   }
 
-  .line {
+  .cell__line {
     border-bottom: 1px solid #e5e5e5;
   }
 </style>

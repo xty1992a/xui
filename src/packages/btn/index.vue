@@ -1,5 +1,5 @@
 <template>
-  <button @click="btnClick" :style="style" :class="[size, type]">
+  <button @tap="btnClick" :style="style" :class="['btn__'+size, 'btn__'+type]">
     <slot>
       <i :class="['iconfont', icon.slice(2)]" v-if="icon&&icon.slice(0,1)==='l'"></i>
       <template>{{text}}</template>
@@ -22,7 +22,7 @@
 		default: 4
 	  },
 	  colors: {
-		// [‘#f7f7f7’，‘#fff’], '#f7f7f7,#fff'
+		// [‘#f7f7f7’，‘#fff’], '#f7f7f7,#fff', bg,color,borderColor,如果没有第三个元素,bordercolor与背景色一致
 		type: [Array, String],
 		default: () => []
 	  },
@@ -34,7 +34,7 @@
 	  type: {
 		// 实际是class
 		type: String,
-		default: 'primary'
+		default: 'default'
 	  },
 	  icon: {
 		// l,icon-arrow或r,icon-arrow，第一个字符决定icon的位置
@@ -46,17 +46,18 @@
 	},
 	methods: {
 	  btnClick() {
-	    this.$emit('tap')
-      }
-    },
+		this.$emit('tap')
+	  }
+	},
 	computed: {
 	  style() {
 		let style = {}
 		if (this.colors.length) {
 		  let colors = this.colors
 		  let type = typeof this.colors
-		  if (type === 'string' && colors.length) colors = this.colors.split(',').slice(0, 2)
+		  if (type === 'string' && colors.length) colors = this.colors.split(',')
 		  style.backgroundColor = colors[0]
+		  style.borderColor = colors[2] || colors[0]
 		  style.color = colors[1]
 		}
 		if (this.radius) {
@@ -76,29 +77,45 @@
   }
 
   // region size
-  .small {
+  .btn__small {
     width: 80px;
     height: 32px;
+    font-size: 14px; /*px*/
   }
 
-  .normal {
+  .btn__normal {
     width: 120px;
     height: 44px;
+    font-size: 15px; /*px*/
   }
 
-  .large {
+  .btn__large {
     width: 355px;
     height: 48px;
+    font-size: 18px; /*px*/
   }
 
-  .wrap {
+  .btn__wrap {
     width: 100%;
     height: 100%;
   }
 
   // endregion
 
-  .primary {
+  // region color
+  .btn__default {
     border: 1px solid #333;
   }
+
+  .btn__primary {
+    background-color: #4b0;
+    color: #fff;
+  }
+
+  .btn__danger {
+    background-color: #f44;
+    color: #fff;
+  }
+
+  // endregion
 </style>

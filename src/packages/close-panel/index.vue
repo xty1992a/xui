@@ -4,7 +4,7 @@
               @before-leave="beforeLeave"
               @leave="leave"
               name="closePanel"
-              class="close-panel">
+              class="x-close-panel">
     <slot></slot>
   </transition>
 </template>
@@ -89,9 +89,3 @@
 	}
   }
 </script>
-
-<style lang="less" rel="stylesheet/less" scoped>
-  b {
-    position: absolute;
-  }
-</style>
