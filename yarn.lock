@@ -5811,9 +5811,9 @@ xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
 
-xui@^1.0.3:
-  version "1.0.3"
-  resolved "http://192.168.2.213:8081/repository/npm/xui/-/xui-1.0.3.tgz#a0734971809ce47ea4999517df5614e4a9030335"
+xui@^1.0.5:
+  version "1.0.5"
+  resolved "http://192.168.2.213:8081/repository/npm/xui/-/xui-1.0.5.tgz#13f248e8e20405d0f666744868eb74cdb6d71da8"
 
 xxhashjs@^0.2.1:
   version "0.2.2"

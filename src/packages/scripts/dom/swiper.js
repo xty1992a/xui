@@ -1,34 +1,16 @@
 /**
  * Created by TY-xie on 2018/5/30.
  */
+
+import Carousel from './carousel'
 import helper from './helper'
-const initialOption = Object.assign(Object.create(null), {
-  loop: true,
-  time: 3000,
-  nextThreshold: 0.2,   // 翻页需要滑动的距离
-  direction: 'horizontal',
-  bounce: true,
-  get scrollX() {
-	return this.direction === 'horizontal'
-  },
-  get scrollY() {
-	return this.direction === 'vertical'
-  },
-})
 
-class Swipper {
-  $touch = {
-	startX: 0,
-	startY: 0,
-	startTime: 0,
-	nowX: 0,
-	nowY: 0,
-	nowTime: 0,
-	offsetX: 0,
-	offsetY: 0,
-  }
-
-  task = {}
+// region 普通轮播方式
+// 原理是额外添加两个元素,复制最后一个元素放在最前,第一个元素放在最后 -->3[1]231
+// 当滚动到列表第一个元素,跳到列表倒数第二
+// 当滚动到列表最后一个,跳到顺数第二
+// endregion
+export default class Swipper extends Carousel {
 
   set currentIndex(v) {
 	if (this.$option.loop) {
@@ -43,7 +25,10 @@ class Swipper {
 		  let len = this.$currentIndex = 1
 		  offsetX = this.$preOffsetX = len * -this.$option.width
 		}
-		this.$slider.style.transform = `translate3d(${offsetX}px,0,0)`
+		// this.$slider.style.transform = `translate3d(${offsetX}px,0,0)`
+		helper.css(this.$slider, {
+		  transform: `translate3d(${offsetX}px, 0, 0)`,
+		})
 		this.fire('scrollEnd', this.$currentIndex - 1)
 	  })
 	} else {
@@ -60,20 +45,7 @@ class Swipper {
   }
 
   constructor(el, opt = Object.create(null)) {
-	this.$el = el
-	this.$slider = el.children[0]
-	if (!this.$slider) throw new Error('el should contain an child')
-	this.$option = Object.assign(Object.create(null), initialOption, opt)
-	this.init()
-  }
-
-  init() {
-	this.$option.width = this.$el.clientWidth
-	this.$el.classList.add('swipper__container')
-	this.$slider.classList.add('swipper__slider')
-
-	this.initWidth()
-	this.listen()
+	super(el, opt)
   }
 
   initWidth() {
@@ -91,7 +63,10 @@ class Swipper {
 	  this.$currentIndex = 1
 	}
 	let offsetX = this.$preOffsetX = this.$currentIndex * -this.$option.width
-	this.$slider.style.transform = `translate3d(${offsetX}px,0,0)`
+	// this.$slider.style.transform = `translate3d(${offsetX}px,0,0)`
+	helper.css(this.$slider, {
+	  transform: `translate3d(${offsetX}px, 0, 0)`,
+	})
 	this.$slider.style.width = this.$children.length * this.$option.width + 'px'
 	this.$children.forEach(child => {
 	  child.classList.remove('swipper__item')
@@ -100,83 +75,40 @@ class Swipper {
 	})
   }
 
-  listen() {
-	let {events} = helper
-	this.$el.addEventListener(events.down, this.down.bind(this))
-	this.$el.addEventListener(events.move, this.move.bind(this))
-	this.$el.addEventListener(events.up, this.up.bind(this))
-	this.$el.addEventListener(events.leave, this.leave.bind(this))
-  }
-
-  down(e) {
-	if (this.$scrolling) return
-	e.stopPropagation()
-	let point = helper.isMobile ? e.touches[0] : e
-	let touch = this.$touch
-	touch.down = true
-	touch.startX = point.pageX
-	touch.startY = point.pageY
-  }
-
-  move(e) {
-	let touch = this.$touch
-	if (this.$scrolling || !touch.down) return
-	e.stopPropagation()
-	e.preventDefault()
-	let point = helper.isMobile ? e.touches[0] : e
-	touch.nowX = point.pageX
-	touch.nowY = point.pageY
-	let deltaX = touch.offsetX = touch.nowX - touch.startX
-	let deltaY = touch.offsetY = touch.nowY - touch.startY
-	deltaX += this.$preOffsetX
-	this.$slider.style.transform = `translate3d(${deltaX}px, 0, 0)`
-  }
-
-  up(e) {
-	let touch = this.$touch
-	if (this.$scrolling || !touch.down) return
-	touch.down = false
-	e.stopPropagation()
-	let point = helper.isMobile ? e.changedTouches[0] : e
-	let index = this.currentIndex
-	if (Math.abs(touch.offsetX) > ( this.$option.width * this.$option.nextThreshold)) {
-	  if (touch.offsetX < 0) {
-		this.currentIndex += 1
-	  } else {
-		this.currentIndex -= 1
-	  }
-	} else {
-	  this.currentIndex = this.$currentIndex
-	}
-	this.fire('touchUp', {
-	  point,
-	  prevIndex: index,
-	  nextIndex: this.currentIndex,
+  scroll() {
+	let {offsetX} = this.$touch
+	offsetX += this.$preOffsetX
+	// this.$slider.style.transform = `translate3d(${offsetX}px, 0, 0)`
+	helper.css(this.$slider, {
+	  transform: `translate3d(${offsetX}px, 0, 0)`,
 	})
   }
 
-  leave() {
-	console.log('leave')
+  next() {
+	this.currentIndex += 1
+  }
+
+  prev() {
+	this.currentIndex -= 1
+  }
+
+  stay() {
+	this.currentIndex = this.$currentIndex
   }
 
   refresh() {
-	console.log('refresh')
 	if (this.$option.loop) {
-	  // this.scrollTo(0, 300, () => {
 	  this.$slider.removeChild(this.$children.shift())
 	  this.$slider.removeChild(this.$children.pop())
 	  this.initWidth()
 	  this.fire('scrollEnd', this.$currentIndex - 1)
-	  // })
 	} else {
-	  // this.scrollTo(1, 300, () => {
 	  this.initWidth()
 	  this.fire('scrollEnd', this.$currentIndex)
-	  // })
 	}
   }
 
-  scrollTo(index, duration = 300, callback) {
+  scrollTo(index, duration = this.$option.duration, callback) {
 	let opt = this.$option
 	this.$slider.style.transition = `transform ${duration}ms linear`
 	let self = this
@@ -191,7 +123,10 @@ class Swipper {
 	this.$slider.addEventListener('transitionend', end)
 	let offsetX = index * -opt.width
 	this.$preOffsetX = offsetX
-	this.$slider.style.transform = `translate3d(${offsetX}px, 0, 0)`
+	// this.$slider.style.transform = `translate3d(${offsetX}px, 0, 0)`
+	helper.css(this.$slider, {
+	  transform: `translate3d(${offsetX}px, 0, 0)`,
+	})
 	this.$scrolling = true
   }
 
@@ -210,23 +145,4 @@ class Swipper {
 
   // endregion
 
-  on(event, callback) {
-	if (!this.task[event]) {
-	  this.task[event] = callback
-	}
-  }
-
-  fire(event, payload) {
-	this.task[event] && this.task[event](payload)
-  }
-
-  destroy() {
-	console.log(this.$el)
-	let {events} = helper
-	this.$el.removeEventListener(events.down, this.down)
-	this.$el.removeEventListener(events.move, this.move)
-	this.$el.removeEventListener(events.up, this.up)
-	this.$el.removeEventListener(events.leave, this.leave)
-  }
 }
-export default Swipper

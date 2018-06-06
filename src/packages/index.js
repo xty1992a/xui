@@ -15,8 +15,11 @@ import Ranger from './ranger/index.js'
 import ClosePanel from './close-panel/index.js'
 import Switch from './switcher/index.js'
 import Swiper from './swiper/index.js'
+import Floater from './floater/index.js'
 import Keyboard from './number-keyboard/index.js'
 import PasswordInput from './password-input/index.js'
+import Picker from './picker/index.js'
+import SliderCell from './slider-cell/index.js'
 import {Checker, CheckGroup} from './checker/index.js'
 import {Cell, CellGroup} from './cell/index.js'
 
@@ -31,12 +34,15 @@ const components = [
   CheckGroup,
   Checker,
   Scroll,
+  Floater,
   SidePop,
+  SliderCell,
   Switch,
   Swiper,
   XDialog,
   Keyboard,
   PasswordInput,
+  Picker,
   Tabs,
   TabPanel,
   TabNav,

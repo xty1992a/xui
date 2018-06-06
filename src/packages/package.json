@@ -1,6 +1,6 @@
 {
   "name": "xui",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "a vue ui",
   "main": "index.js",
   "scripts": {
@@ -10,5 +10,6 @@
   "license": "ISC",
   "publishConfig": {
     "registry": "http://192.168.2.213:8081/repository/npm-local/"
-  }
+  },
+  "dependencies": {}
 }

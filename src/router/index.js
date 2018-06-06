@@ -12,7 +12,7 @@ export default new Router({
 	{
 	  path: '/animation',
 	  name: 'animation',
-	  component: resolve => require(['pages/request-animation.vue'], resolve),
+	  component: resolve => require(['pages/animation'], resolve),
 	},
 	{
 	  path: '/slider',
@@ -23,6 +23,26 @@ export default new Router({
 	  path: '/keyboard',
 	  name: 'keyboard',
 	  component: resolve => require(['pages/keyboard.vue'], resolve),
+	},
+	{
+	  path: '/backup',
+	  name: 'backup',
+	  component: resolve => require(['pages/backup'], resolve),
+	},
+	{
+	  path: '/clip',
+	  name: 'clip',
+	  component: resolve => require(['pages/clip'], resolve),
+	},
+	{
+	  path: '/picker',
+	  name: 'picker',
+	  component: resolve => require(['pages/picker-page'], resolve),
+	},
+	{
+	  path: '*',
+	  name: 'notFound',
+	  component: resolve => require(['pages/404'], resolve),
 	},
   ],
 })

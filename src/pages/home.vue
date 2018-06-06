@@ -41,7 +41,7 @@
         </check-group>
       </cell>
 
-      <cell title="豆花口味" icon="icon-edit-unfill" line @tap.native="open=!open">
+      <cell title="豆花口味" icon="icon-edit-unfill" line>
         <switcher v-model="open" slot="right" style="float: right;"></switcher>
       </cell>
     </div>

@@ -51,6 +51,7 @@
 		type: Array,
 		required: true
 	  },
+	  fresh: Boolean
 	},
 	data () {
 	  return {
@@ -96,15 +97,14 @@
 
 	  start(e) {
 		this.touch.down = true
-		this.touch.startY = e.touches[0].pageY
+		this.touch.startY = this.touch.nowY = e.touches[0].pageY
 		this.touch.offsetY = this.$refs.wrap.scrollTop
-//		console.log('start', this.touch.offsetY)
 	  },
 	  move(e) {
 		if (!this.touch.down) return
 		if (this.$refs.wrap.scrollTop <= 0) {
+		  if (!this.fresh) return
 		  this.holdRefresh = true
-//		  console.log('back top')
 		  let deltaY = (this.touch.nowY = e.touches[0].pageY, this.touch.nowY) - this.touch.startY
 		  if (deltaY < 0) return
 		  let offset = deltaY *= 0.85
@@ -112,8 +112,8 @@
 		  if (this.hadEmitReFresh) {
 			offset += this.freshOffset
 		  }
-		  this.freshOffset = Math.min(offset, +this.freshHeight)
 		  e.preventDefault()
+		  this.freshOffset = Math.min(offset, +this.freshHeight)
 		  this.$refs.wrap.style.transform = `translateY(${offset}px)`
 		  if (!this.hadEmitReFresh) {
 			this.$refs.refresh.style.transform = `translateY(${this.freshOffset}px)`
@@ -129,7 +129,6 @@
 	  },
 	  scroll() {
 		if (this.blocker('Scroll')) return
-		console.log('scroll')
 		this.scrollY = this.$refs.wrap.scrollTop
 		if (this.touch.down) return
 		this.emitScrollEnd()
@@ -212,6 +211,7 @@
       @size: 40px;
       position: absolute;
       right: 10px;
+      z-index: 5;
       bottom: 60px;
       background-color: #fff;
       width: @size;

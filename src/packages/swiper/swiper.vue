@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import {Swipper, Slider} from '../scripts/dom/slider'
+  import Swipper from '../scripts/dom/swiper'
   export default {
 	name: 'swiper',
 	components: {},
@@ -20,11 +20,10 @@
 	  loop: Boolean,
 	  bounce: Boolean,
 	  auto: Boolean,
-	  duration: Number,
-	  type: {
-		type: String,
-		default: '1'
-	  }
+	  duration: {
+		type: Number,
+		default: 2000
+	  },
 	},
 	data () {
 	  return {
@@ -48,26 +47,17 @@
 				bounce: this.bounce,
 				duration: this.duration,
 			  })
-			  switch (this.type) {
-				case '1':
-				  this.swipper = new Swipper(wrap, opt)
-				  break
-				case '2':
-				  this.swipper = new Slider(wrap, opt)
-				  break
-			  }
-			  console.log(this.swipper)
+			  this.swipper = new Swipper(wrap, opt)
 			}
 			else {
 			  this.swipper.refresh()
 			}
 			this.swipper.on('scrollEnd', index => {
 			  this.currentIndex = index
-			  if (this.type === '2') console.log('end')
 			  if (this.auto) {
 				this.timer = setTimeout(() => {
 				  this.swipper.next()
-				}, 1000)
+				}, this.duration)
 			  }
 			})
 			this.swipper.on('touchDown', () => {
@@ -79,6 +69,7 @@
 		}, 20)
 	  },
 	  active(i) {
+		clearTimeout(this.timer)
 		this.swipper.goToPage(i)
 	  },
 	  autoPlay(){
@@ -106,7 +97,8 @@
   @import "../style/swipper";
 
   .x-swipper {
-    /*overflow: hidden;*/
+    overflow: hidden;
+    height: 273px;
     .swipper__dot-list {
       text-align: center;
       span {

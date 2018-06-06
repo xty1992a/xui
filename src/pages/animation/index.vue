@@ -7,7 +7,7 @@
             @scrollEnd="scrollEnd"
             @infinite="infiniteHandler"
             @refresh="refreshHandler">
-      <swiper :data="imgList" loop>
+      <swiper :data="imgList" loop auto>
         <ul class="img-list">
           <li class="img-wrap" :key="index" v-for="item,index in imgList">
             <img :src="item" alt="">
@@ -15,19 +15,16 @@
         </ul>
       </swiper>
       <ul class="list">
-        <li class="item" v-for="item in list">{{item}}</li>
+        <li class="item" v-for="item in list">
+          <card></card>
+        </li>
       </ul>
     </scroll>
-    <!--<load-more requireRefresh :onInfinite="onInfinite" :onRefresh="onRefresh">-->
-    <!--<ul class="list">-->
-    <!--<li class="item" v-for="item in list">{{item}}</li>-->
-    <!--</ul>-->
-    <!--</load-more>-->
   </div>
 </template>
 
 <script>
-  import LoadMore from 'components/load-more1'
+  import Card from './children/card'
   export default {
 	name: 'request-animation',
 	data () {
@@ -46,34 +43,13 @@
 		],
 	  }
 	},
-	components: {LoadMore},
+	components: {Card},
 	created() {
-	  this.list = Array(40).fill(0).map((i, n) => n + 1)
+	  this.list = Array(20).fill(0).map((i, n) => n + 1)
 	},
 	methods: {
 	  scrollEnd(y) {
 		this.info.splice(0, 1, y)
-	  },
-
-	  onInfinite(done) {
-		console.log('should load more')
-		let l = this.list[this.list.length - 1]
-		setTimeout(() => {
-		  if (this.list.length > 60) {
-			done(true)
-		  } else {
-			this.list = [...this.list, ...Array(20).fill(0).map((i, n) => n + 1 + l)]
-			done(false)
-		  }
-		}, 1000)
-	  },
-	  onRefresh(done) {
-		console.log('should refresh')
-		setTimeout(() => {
-		  console.log('list back')
-		  this.list = Array(40).fill(0).map((i, n) => n + 1)
-		  done()
-		}, 1000)
 	  },
 
 	  refreshHandler() {
@@ -103,6 +79,7 @@
 <style scoped lang="less" rel="stylesheet/less">
 
   .request-animation {
+    background-color: #f7f7f7;
     position: absolute;
     left: 0;
     right: 0;
@@ -112,11 +89,10 @@
 
   .list {
     margin: 0;
-    padding: 0 0 0 10px;
+    padding: 0 10px;
     li {
       list-style: none;
-      line-height: 30px;
-      padding-left: 10px;
+      margin-bottom: 10px;
       &:nth-child(2n+1) {
         background-color: #f7f7f7;
       }

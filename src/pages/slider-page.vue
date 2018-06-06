@@ -14,6 +14,10 @@
         </ul>
       </swiper>
     </div>
+
+    <div class="clip">
+      <div class="box"></div>
+    </div>
   </div>
 </template>
 
@@ -64,5 +68,17 @@
       }
     }
 
+    .clip {
+      .box {
+        height: 100px;
+        width: 100px;
+        background-color: #f7f7f7;
+        clip-path: circle(180px at 50px 50px);
+        transition: .3s;
+        &:hover {
+          clip-path: circle(30px at 50px 50px);
+        }
+      }
+    }
   }
 </style>

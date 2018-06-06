@@ -6,7 +6,16 @@
  * d: duration（持续时间）。
  * you can visit 'http://easings.net/zh-cn' to get effect
  */
-var Tween = {
+export const rAF = window.requestAnimationFrame ||
+	window.webkitRequestAnimationFrame ||
+	window.mozRequestAnimationFrame ||
+	window.oRequestAnimationFrame ||
+	window.msRequestAnimationFrame ||
+	function (callback) {
+	  window.setTimeout(callback, 1000 / 60);
+	};
+
+export const Tween = {
   Linear: function (t, b, c, d) {
 	return c * t / d + b;
   },
@@ -176,30 +185,13 @@ var Tween = {
 	},
   },
 }
-Math.tween = Tween;
 
-function animationTo(style = {height: 100}, duration = 300) {
-  function step() {
-  }
-}
-let t = 0
-while (t <= 300) {
-  console.log(Tween.Quad.easeIn(t, 0, 100, 300))
-  t += 30
-}
-
-function getFrame(begin, end, duration) {
-  const linear = (t, b, c, d) => c * t / d + b
-  const easeIn = (t, b, c, d) => c * (t /= d) * t + b
-  const easeOut = (t, b, c, d) => -c * (t /= d) * (t - 2) + b;
-  const easeInOut = (t, b, c, d) => ((t /= d / 2) < 1) ? (c / 2 * t * t + b) : (-c / 2 * ((--t) * (t - 2) - 1) + b)
+// 获取一段区间的帧数组.
+export function getFrameArray(start, end, duration = 300) {
   let arr = []
-  let c = end - begin
-  let t = 0
-  while (t <= duration) {
-	arr.push(easeInOut(t, begin, c, duration))
-	t += duration / 10
+  let len = duration / (1000 / 60) // 总帧数
+  for (let i = 0; i <= len; i++) {
+	arr.push(Tween.Quad.easeInOut(i * (1000 / 60), start, end - start, duration))
   }
   return arr
 }
-console.log(getFrame(0, 100, 300))

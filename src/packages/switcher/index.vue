@@ -1,5 +1,5 @@
 <template>
-  <div class="x-switcher" @click="change" :class="value?'x-switch-on':'x-switch-off'">
+  <div class="x-switcher" @tap="change" :class="value?'x-switch-on':'x-switch-off'">
     <div class="switch__btn"></div>
   </div>
 </template>
@@ -10,14 +10,16 @@
 	props: ['value'],
 	methods: {
 	  change() {
-		this.$emit('change', !this.value)
+		this.$emit('input', !this.value)
 	  }
 	},
   }
 </script>
 
 <style lang="less" rel="stylesheet/less" scoped>
-  @import "../../styles/index";
+  @import "../style/theme";
+
+  @delay: .3s;
 
   .x-switcher {
     -webkit-touch-callout: none;
@@ -48,7 +50,6 @@
     }
   }
 
-  @delay: .3s;
   .translate(@x,@y,@z) {
     transform: translate3d(@x, @y, @z);
   }
