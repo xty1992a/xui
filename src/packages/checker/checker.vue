@@ -4,7 +4,7 @@
 
 <script>
   export default {
-	name: 'checker',
+	name: 'x-checker',
 	components: {},
 	props: {
 	  disable: Boolean,

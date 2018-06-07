@@ -1,8 +1,8 @@
 <template>
   <div class="keyboard-page page">
     <p class="text">输入密码:</p>
-    <password-input @tap.native="show=true" :value="password.length"></password-input>
-    <number-keyboard :show.sync="show" v-model="password"></number-keyboard>
+    <x-password-input @tap.native="show=true" :value="password.length"></x-password-input>
+    <x-number-keyboard :show.sync="show" v-model="password"></x-number-keyboard>
   </div>
 </template>
 

@@ -32,7 +32,7 @@
 
 <script>
   export default {
-	name: 'scroll',
+	name: 'x-scroll',
 	components: {},
 	props: {
 	  freshHeight: {

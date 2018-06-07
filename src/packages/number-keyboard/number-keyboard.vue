@@ -1,17 +1,17 @@
 <template>
-  <action class="keyboard-action" v-show="show" :opacity="0" position="bottom" @cancel="cancel">
+  <x-action class="keyboard-action" v-show="show" :opacity="0" position="bottom" @cancel="cancel">
     <div class="x-number-keyboard" slot="bottom">
       <div class="key__cell" v-for="cell in cellList" @tap="cellTap(cell.key)">
         <i :class="['iconfont', cell.icon]" v-if="cell.icon"></i>
         <span v-if="cell.text">{{cell.text}}</span>
       </div>
     </div>
-  </action>
+  </x-action>
 </template>
 
 <script>
   export default {
-	name: 'number-keyboard',
+	name: 'x-number-keyboard',
 	components: {},
 	props: {
 	  show: Boolean,

@@ -6,7 +6,7 @@
 
 <script>
   export default {
-	name: 'check-group',
+	name: 'x-check-group',
 	components: {},
 	props: {
 	  value: {

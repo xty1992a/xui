@@ -6,7 +6,7 @@
 
 <script>
   export default {
-	name: 'password-input',
+	name: 'x-password-input',
 	components: {},
 	props: {
 	  value: {

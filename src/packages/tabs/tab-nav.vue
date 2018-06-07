@@ -16,7 +16,7 @@
 <script>
   const halfScreen = document.documentElement.clientWidth / 2
   export default {
-	name: 'tab-nav',
+	name: 'x-tab-nav',
 	components: {},
 	props: {
 	  labels: {

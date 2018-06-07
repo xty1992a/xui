@@ -2,7 +2,7 @@
   <div class="x-picker" ref="wrap" :style="{fontSize: font+'px'}"
        @touchstart="start" @touchmove="move" @touchend="end">
     <ul class="pick-list" :style="{transform:`translate3d(0,${offsetY}px,0)`, transition}" @transitionend="transitionEnd">
-      <li class="pick-item" v-for="item in data"><p class="text">{{item.text}}</p></li>
+      <li class="pick-item" v-for="item,index in data"><p class="text">{{item.text}}</p></li>
     </ul>
   </div>
 </template>
@@ -40,6 +40,7 @@
 		  y: 0
 		},
 		transition: '',
+		speed: 0,
 	  }
 	},
 	created() {
@@ -55,57 +56,51 @@
 	  },
 	  end(e) {
 		this.touchEnd(e)
-		let speed = this.touch.deltaY / this.touch.deltaTime
-		let absS = Math.abs(speed)
-		let end
-		// 速度大于0.5px每毫秒,自动滚动
-		if (absS > 0.5) {
-		  end = this.touch.deltaY + this.offsetY
-		  if (absS > 2) {
-			if (speed > 0) {
-			  end = 0
-			} else {
-			  end = (this.data.length - 1) * -this.font
-			}
+		this.speed = this.touch.deltaY / this.touch.deltaTime
+		this.scrollByValue()
+	  },
+	  scrollByValue() {
+		let s = this.speed
+		let self = this
+		requestAnimationFrame(step)
+
+		function step() {
+		  s *= .96
+		  s *= .96
+
+		  // 根据速度计算出每一帧应处于的位置
+		  let offset = self.offsetY + s * 17
+		  let index = Math.round(offset / self.font)
+		  index = ranger(index, -self.data.length + 1, 0)
+		  offset = index * self.font
+		  if (self.offset.y === offset || self.touch.down) {
+			self.offset.y = self.offsetY = ranger(offset, (-self.data.length + 1) * self.font, 0)
+			self.$emit('input', -index)
+			return
 		  }
-		  let time = .3
-		  let gap = Math.abs(end - this.offsetY)
-		  if (gap > 80) {
-			time = .7
-		  }
-		  if (gap > 200) {
-			time = 1
-		  }
-		  if (gap > 300) {
-			time = 2
-		  }
-		  console.log(time)
-		  this.offsetY = end
-		  this.transition = time + 's cubic-bezier(0,.34,.06,.7)'
+		  self.transition = '.2s linear'
+		  self.offset.y = self.offsetY = offset //  Math.round(offset - s * 8)
+		  requestAnimationFrame(step)
 		}
-		else {
-		  this.transition = '.2s linear'
-		}
-		let index = Math.round(this.offsetY / this.font)
-		index = ranger(index, -this.data.length + 1, 0)
-		this.offsetY = index * this.font
-		this.offset.y = this.offsetY
-		this.$emit('input', -index)
 	  },
 	  transitionEnd() {
 		this.transition = ''
 	  }
 	},
-	computed: {},
+	computed: {
+	  scrollIndex() {
+		let index = Math.round(this.offsetY / this.font)
+		index = ranger(index, -this.data.length + 1, 0)
+		return -index
+	  }
+	},
 	watch: {
 	  value: {
 		handler(now, old) {
-		  if (Math.abs(now - old) > 5) {
-			this.transition = '1s linear'
-		  } else {
+		  if (now !== old) {
 			this.transition = '.2s linear'
+			this.offset.y = this.offsetY = -now * this.font
 		  }
-		  this.offset.y = this.offsetY = -now * this.font
 		}, immediate: true
 	  }
 	}

@@ -37,7 +37,7 @@ export default new Router({
 	{
 	  path: '/picker',
 	  name: 'picker',
-	  component: resolve => require(['pages/picker-page'], resolve),
+	  component: resolve => require(['pages/address-picker'], resolve),
 	},
 	{
 	  path: '*',

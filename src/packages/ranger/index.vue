@@ -14,7 +14,7 @@
   import helper from '../scripts/dom/helper.js'
 
   export default {
-	name: 'ranger',
+	name: 'x-ranger',
 	props: {
 	  value: {
 		type: Number,

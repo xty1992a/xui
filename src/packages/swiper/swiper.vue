@@ -10,7 +10,7 @@
 <script>
   import Swipper from '../scripts/dom/swiper'
   export default {
-	name: 'swiper',
+	name: 'x-swiper',
 	components: {},
 	props: {
 	  data: {

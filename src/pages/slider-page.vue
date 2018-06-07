@@ -1,18 +1,18 @@
 <template>
   <div class="slider-page">
-    <btn text="添加" @tap="add"></btn>
-    <btn text="删除" @tap="minus"></btn>
+    <x-btn text="添加" @tap="add"></x-btn>
+    <x-btn text="删除" @tap="minus"></x-btn>
     <div class="wrap">
-      <swiper :data="itemList" loop auto>
+      <x-swiper :data="itemList" loop auto>
         <ul class="img-list">
           <li class="img-wrap" :key="index" v-for="item,index in itemList">{{item}}</li>
         </ul>
-      </swiper>
-      <swiper :data="itemList" loop type="2" auto>
+      </x-swiper>
+      <x-swiper :data="itemList" loop type="2" auto>
         <ul class="img-list">
           <li class="img-wrap" :key="index" v-for="item,index in itemList">{{item}}</li>
         </ul>
-      </swiper>
+      </x-swiper>
     </div>
 
     <div class="clip">

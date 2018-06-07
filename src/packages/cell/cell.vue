@@ -22,7 +22,7 @@
 
 <script>
   export default {
-	name: 'cell',
+	name: 'x-cell',
 	components: {},
 	props: {
 	  type: {
@@ -61,6 +61,7 @@
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
+  @import "../style/index.less";
 
   .x-cell {
     display: flex;
@@ -112,7 +113,11 @@
     height: 45px;
   }
 
+  .cell__wrap {
+    height: 100%;
+  }
+
   .cell__line {
-    border-bottom: 1px solid #e5e5e5;
+    .line(#e5e5e5, 0);
   }
 </style>

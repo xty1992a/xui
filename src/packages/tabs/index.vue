@@ -1,6 +1,8 @@
 <template>
   <div class="x-tabs">
-    <tab-nav v-model="navIndex" :labels="labels" @dir="dirChange"></tab-nav>
+    <template v-if="!headLess">
+      <x-tab-nav v-model="navIndex" :labels="labels" @dir="dirChange"></x-tab-nav>
+    </template>
     <ul class="tab__content">
       <slot></slot>
     </ul>
@@ -9,9 +11,10 @@
 
 <script>
   export default {
-	name: 'tabs',
+	name: 'x-tabs',
 	props: {
-	  value: Number
+	  value: Number,
+	  headLess: Boolean
 	},
 	data () {
 	  return {
@@ -24,7 +27,7 @@
 	  this.navIndex = this.value
 	},
 	mounted() {
-	  this.labels = this.$slots.default.map((it) => it.child.label)
+	  this.labels = this.$slots.default.reduce((p, it) => it.child ? [...p, it.child.label] : p, [])
 	},
 	methods: {
 	  dirChange(dir) {

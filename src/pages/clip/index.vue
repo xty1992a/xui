@@ -3,13 +3,13 @@
     <div class="slider" ref="slider" :style="{transform:`translate3d(${offsetX}px,0,0)`, transition, webkitClipPath: clipPath}"
          @transitionend="transitionEnd"
          @touchstart="start" @touchmove="move" @touchend="end">
-      <scroll :data="list">
+      <x-scroll :data="list">
         <div class="page-content">
           <ul class="list">
             <li class="item" v-for="i in list">{{i}}</li>
           </ul>
         </div>
-      </scroll>
+      </x-scroll>
     </div>
     <x-floater class="float" v-model="floatPos" :style="{opacity}" ref="float" stick>
       <div class="icon" @tap="showPage"></div>

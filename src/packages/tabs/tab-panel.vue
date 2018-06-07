@@ -9,7 +9,7 @@
 <script>
   import {getParentByName} from '../scripts/helper/vue-helper'
   export default {
-	name: 'tab-panel',
+	name: 'x-tab-panel',
 	props: {
 	  label: {
 		type: String,
@@ -22,14 +22,14 @@
 	},
 	computed: {
 	  active() {
-		return this.groupValue === this.index
+		return this.groupValue === +this.index
 	  },
 	  groupValue() {
-		let parent = getParentByName(this, 'tabs')
+		let parent = getParentByName(this, 'x-tabs')
 		return parent.value
 	  },
 	  dir() {
-		let parent = getParentByName(this, 'tabs')
+		let parent = getParentByName(this, 'x-tabs')
 		return parent.dir
 	  },
 	  transitionName() {

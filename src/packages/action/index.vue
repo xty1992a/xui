@@ -17,7 +17,7 @@
 
 <script>
   export default {
-	name: 'action',
+	name: 'x-action',
 	props: {
 	  topHeight: {
 		type: String,

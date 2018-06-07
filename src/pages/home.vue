@@ -3,71 +3,71 @@
 
 
     <div class="btn-wrap">
-      <btn colors="#fff,#000,#333" text="底侧action" size="small" @tap="show=true"></btn>
-      <btn type="primary" text="右侧pop" size="normal" @tap="sideHandle('right')"></btn>
-      <btn type="danger" text="左侧pop" size="large" @tap="sideHandle('left')"></btn>
+      <x-btn colors="#fff,#000,#333" text="底侧action" size="small" @tap="show=true"></x-btn>
+      <x-btn type="primary" text="右侧pop" size="normal" @tap="sideHandle('right')"></x-btn>
+      <x-btn type="danger" text="左侧pop" size="large" @tap="sideHandle('left')"></x-btn>
     </div>
 
-    <tab-nav v-model="tabIndex" :labels="tabs.map(({name}) => name)">
+    <x-tab-nav v-model="tabIndex" :labels="tabs.map(({name}) => name)">
       <div class="custom-name" slot-scope="name">{{name.navName}}</div>
-    </tab-nav>
-    <tabs v-model="tabIndex">
-      <tab-panel
+    </x-tab-nav>
+    <x-tabs v-model="tabIndex">
+      <x-tab-panel
               :label="item.name"
               :key="index"
               :index="index"
               v-for="item,index in tabs">
         <div class="item">{{item.desc}}</div>
-      </tab-panel>
-    </tabs>
+      </x-tab-panel>
+    </x-tabs>
 
-    <ranger v-model="goods.count" :start="0" :step="goods.inventory"></ranger>
+    <x-ranger v-model="goods.count" :start="0" :step="goods.inventory"></x-ranger>
     <div class="cell-list">
 
-      <cell title="计数器" icon="icon-edit-unfill" line>
+      <x-cell title="计数器" icon="icon-edit-unfill" line>
         <template slot="right">
-          <count size="normal"
-                 v-model="goods.count"
-                 :max="goods.inventory"></count>
+          <x-count size="normal"
+                   v-model="goods.count"
+                   :max="goods.inventory"></x-count>
         </template>
-      </cell>
+      </x-cell>
 
-      <cell title="标题" icon="icon-edit-unfill" link="http://www.baidu.com" line value="去买单"></cell>
+      <x-cell title="标题" icon="icon-edit-unfill" link="http://www.baidu.com" line value="去买单"></x-cell>
 
-      <cell title="豆花口味" icon="icon-edit-unfill" line>
-        <check-group v-model="taste" slot="right" style="float: right;">
-          <checker val="0" text="甜豆花"></checker>
-          <checker val="1" text="咸豆花"></checker>
-        </check-group>
-      </cell>
+      <x-cell title="豆花口味" icon="icon-edit-unfill" line>
+        <x-check-group v-model="taste" slot="right" style="float: right;">
+          <x-checker val="0" text="甜豆花"></x-checker>
+          <x-checker val="1" text="咸豆花"></x-checker>
+        </x-check-group>
+      </x-cell>
 
-      <cell title="豆花口味" icon="icon-edit-unfill" line>
-        <switcher v-model="open" slot="right" style="float: right;"></switcher>
-      </cell>
+      <x-cell title="豆花口味" icon="icon-edit-unfill" line>
+        <x-switcher v-model="open" slot="right" style="float: right;"></x-switcher>
+      </x-cell>
     </div>
 
-    <close-panel v-show="open">
+    <x-close-panel v-show="open">
       <div>
         <div class="panel-block">
-          <check-group v-model="flavor" :radio="false">
-            <checker val="0" disable text="甜豆花"></checker>
-            <checker val="1" text="咸豆花"></checker>
-            <checker val="2" text="咸豆花"></checker>
-            <checker val="3" text="咸豆花"></checker>
-          </check-group>
+          <x-check-group v-model="flavor" :radio="false">
+            <x-checker val="0" disable text="甜豆花"></x-checker>
+            <x-checker val="1" text="咸豆花"></x-checker>
+            <x-checker val="2" text="咸豆花"></x-checker>
+            <x-checker val="3" text="咸豆花"></x-checker>
+          </x-check-group>
         </div>
       </div>
-    </close-panel>
+    </x-close-panel>
     <div class="box-wrap">
       <div class="box"></div>
     </div>
 
-    <action v-show="show" @cancel="show=false">
+    <x-action v-show="show" @cancel="show=false">
       <div class="downer" slot="bottom"></div>
-    </action>
-    <side-pop :position="position" v-show="sideShow" @cancel="sideShow=false">
+    </x-action>
+    <x-side-pop :position="position" v-show="sideShow" @cancel="sideShow=false">
       <div class="left-side"></div>
-    </side-pop>
+    </x-side-pop>
 
   </div>
 </template>

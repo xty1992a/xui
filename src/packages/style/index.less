@@ -1,0 +1,27 @@
+@import "./theme.less";
+
+.ex_click(@size: -10px) {
+  position: relative;
+  &:after {
+    content: '';
+    position: absolute;
+    left: @size;
+    top: @size;
+    right: @size;
+    bottom: @size;
+  }
+}
+
+.line(@bc: #e5e5e5,@left: 10px, @right: 0) {
+  position: relative;
+  &:after {
+    position: absolute;
+    content: '';
+    left: @left;
+    right: @right;
+    bottom: 0;
+    height: 1px;
+    background-color: @bc;
+    transform: scaleY(0.5);
+  }
+}

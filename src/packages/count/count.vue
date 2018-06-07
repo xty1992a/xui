@@ -16,7 +16,7 @@
 
 <script>
   export default {
-	name: 'count',
+	name: 'x-count',
 	components: {},
 	props: {
 	  value: {

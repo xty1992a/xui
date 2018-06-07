@@ -11,7 +11,7 @@
 
 <script>
   export default {
-	name: 'side-pop',
+	name: 'x-side-pop',
 	props: {
 	  position: {
 		type: String,

@@ -10,7 +10,7 @@
 
 <script>
   export default {
-	name: 'btn',
+	name: 'x-btn',
 	props: {
 	  text: {
 		type: String,

@@ -6,7 +6,7 @@
 
 <script>
   export default {
-	name: 'switcher',
+	name: 'x-switcher',
 	props: ['value'],
 	methods: {
 	  change() {

@@ -7,6 +7,7 @@ import XUI from '@/packages/index.js'
 // import XUI from 'xui'
 Vue.use(XUI)
 Vue.config.productionTip = false
+Vue.prototype.$XUI = XUI
 import TapCreator from './packages/scripts/dom/tap'
 new TapCreator(document.body, {maxTime: 150})
 /* eslint-disable no-new */

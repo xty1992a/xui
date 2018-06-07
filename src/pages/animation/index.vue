@@ -3,23 +3,23 @@
     <div class="info">
       <p v-for="i in info">{{i}}</p>
     </div>
-    <scroll :data="list" :done="isDone"
-            @scrollEnd="scrollEnd"
-            @infinite="infiniteHandler"
-            @refresh="refreshHandler">
-      <swiper :data="imgList" loop auto>
+    <x-scroll :data="list" :done="isDone"
+              @scrollEnd="scrollEnd"
+              @infinite="infiniteHandler"
+              @refresh="refreshHandler">
+      <x-swiper :data="imgList" loop auto>
         <ul class="img-list">
           <li class="img-wrap" :key="index" v-for="item,index in imgList">
             <img :src="item" alt="">
           </li>
         </ul>
-      </swiper>
+      </x-swiper>
       <ul class="list">
         <li class="item" v-for="item in list">
           <card></card>
         </li>
       </ul>
-    </scroll>
+    </x-scroll>
   </div>
 </template>
 

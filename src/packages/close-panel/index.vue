@@ -28,7 +28,7 @@
   const cut = (start, end, len = 10) => Array(len).fill(0).map((n, i) => start + ((end - start) / len) * (i + 1))
 
   export default {
-	name: 'close-panel',
+	name: 'x-close-panel',
 	data () {
 	  return {
 		height: 0
