@@ -40,6 +40,11 @@ export default new Router({
 	  component: resolve => require(['pages/address-picker'], resolve),
 	},
 	{
+	  path: '/notice',
+	  name: 'notice',
+	  component: resolve => require(['pages/notice'], resolve),
+	},
+	{
 	  path: '*',
 	  name: 'notFound',
 	  component: resolve => require(['pages/404'], resolve),

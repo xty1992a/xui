@@ -14,6 +14,7 @@ import BtnTab from './button-tab/index.js'
 import Tabs from './tabs/index.js'
 import TabPanel from './tab-panel/index.js'
 import TabNav from './tab-nav/index.js'
+import Notice from './notice/index.js'
 import Ranger from './ranger/index.js'
 import ClosePanel from './close-panel/index.js'
 import Switch from './switcher/index.js'
@@ -48,6 +49,7 @@ const components = [
   XDialog,
   Keyboard,
   PasswordInput,
+  Notice,
   Picker,
   Tabs,
   TabPanel,

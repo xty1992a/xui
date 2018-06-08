@@ -1,20 +1,32 @@
 <template>
   <div class="address-picker page">
 
-
+    <x-button-tab v-model="tabIndex" :labels="['注册','登录', '修改']" :radius="6"></x-button-tab>
     <x-tabs v-model="tabIndex" headLess>
       <x-tab-panel label="注册" key="register" index="0">
+        <div class="cell-wrap">
+          <x-field title="联系电话"
+                   v-model="telPhone" line
+                   max="11" :validator="phoneTest"></x-field>
+          <x-field title="验证码"
+                   v-model="verifyCode"
+                   max="4" :btnText="btnText"
+                   @btn-tap="verifyTel"
+                   :validator="phoneTest" btn></x-field>
+        </div>
+      </x-tab-panel>
+      <x-tab-panel label="登录" key="login" index="1">
         <div class="cell-wrap">
           <x-cell title="地区" :value="fullAddress.text" line @tap.native="pickShow=true"></x-cell>
           <x-field title="详细地址" v-model="subAddress" :validator="$XUI.validator.create('require')"></x-field>
         </div>
       </x-tab-panel>
-      <x-tab-panel label="登录" key="login" index="1">
+      <x-tab-panel label="修改" key="edit" index="2">
         <div class="cell-wrap">
           <x-field title="联系电话"
                    v-model="telPhone" line
                    max="11" :validator="phoneTest"></x-field>
-          <x-field title="联系电话"
+          <x-field title="验证码"
                    v-model="verifyCode"
                    max="4" btnText="发送验证码"
                    @btn-tap="verifyTel"
@@ -48,7 +60,8 @@
 		countryIndex: 0,
 		subAddress: '',
 		telPhone: '',
-		verifyCode: ''
+		verifyCode: '',
+		btnText: '发送验证码'
 	  }
 	},
 	created() {
@@ -68,7 +81,26 @@
 	  },
 
 	  verifyTel() {
+		if (this.counting) return
+		this.startCounting(10)
 		console.log('should send msg')
+	  },
+	  startCounting(num) {
+		this.counting = true
+		let self = this
+		step()
+		function step() {
+		  num--
+		  if (!num) {
+			self.btnText = '发送验证码'
+			self.counting = false
+			return
+		  }
+		  self.btnText = `${num}s后重新获取`
+		  setTimeout(() => {
+			step()
+		  }, 1000)
+		}
 	  }
 	},
 	computed: {

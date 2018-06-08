@@ -12,3 +12,9 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+static/b.html
+src/components/load-more.vue
+static/a.html
+static/1.js
+src/scripts/1.js
+src/components/load-more1.vue

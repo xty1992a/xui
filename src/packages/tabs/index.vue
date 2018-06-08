@@ -3,6 +3,7 @@
     <template v-if="!headLess">
       <x-tab-nav v-model="navIndex" :labels="labels" @dir="dirChange"></x-tab-nav>
     </template>
+
     <ul class="tab__content">
       <slot></slot>
     </ul>
@@ -36,14 +37,14 @@
 	},
 	watch: {
 	  navIndex(index) {
-		if (this.value > index) {
+		this.$emit('input', index)
+	  },
+	  value(now, old) {
+		if (now < old) {
 		  this.dir = 'left'
 		} else {
 		  this.dir = 'right'
 		}
-		this.$emit('input', index)
-	  },
-	  value(now) {
 		this.navIndex = now
 	  }
 	}
